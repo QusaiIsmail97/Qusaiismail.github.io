@@ -4,6 +4,11 @@ $(document).ready(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
     });
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+
 
     $(window).on('scroll load', function () {
         $('#menu').removeClass('fa-times');
