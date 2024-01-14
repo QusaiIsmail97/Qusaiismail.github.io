@@ -1219,6 +1219,15 @@ form .button-area {
   transition: 1s linear;
   z-index: 1000;
 }
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Add other dark mode styles here */
+
+
+
 #scroll-top.active {
   top: calc(100% - 12rem);
 }
