@@ -3,23 +3,32 @@
 <head>
  
     <link rel="stylesheet" href="./assets/css/style.css">
-	
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Dark/Light Toggle Switch</title>	
    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
     <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
-    <title>Portfolio | Jigar Sable</title>
+    <title>Portfolio | Qusai Ismail</title>
 </head>
-<body oncontextmenu="return false">
-	 <link rel="stylesheet" href="./assets/css/styles.css">
-<input type="checkbox" id="toggle">
-<label for="toggle">
-    <i class="fa-solid fa-sun sun"></i>
-    <i class="fa-solid fa-moon moon"></i>
-</label>
-<div class="background"></div>
+</body>
+	 <div class="container">
+      <input type="checkbox" id="switch" />
 
+      <div class="bg-fill"></div>
+
+      <div class="switch-btn">
+        <label for="switch">
+          <div class="icons">
+            <img src="./moon-icon.png" alt="moon" />
+            <img src="./sun-icon.png" alt="moon" />
+          </div>
+        </label>
+      </div>
+    </div>
 <!-- pre loader -->
 <!-- <div class="loader-container">
   <img draggable="false" src="./assets/images/preloader.gif" alt="">
