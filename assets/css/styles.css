@@ -18,3 +18,37 @@ body {
 #content {
   font-size: 2rem;
 }
+.label {
+  width: 4rem;
+  height: 2rem;
+  background-color: var(--toggle-bg-color);
+  border-radius: 14px;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  align-items: center;
+
+  .toggle-btn {
+    position: absolute;
+    background-color: #fff;
+    height: 1.6rem;
+    width: 1.85rem;
+    border-radius: 14px;
+    left: 0.25rem;
+    transition: linear 0.2s;
+  }
+
+  .label-icon {
+    width: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+}
+
+.sun {
+  color: #fcb021;
+}
+
+.moon {
+  color: #f2f4f5;
+}
