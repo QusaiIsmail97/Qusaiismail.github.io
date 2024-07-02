@@ -3,7 +3,7 @@
 Portfolio website build using React JS.
 <br/>
 
-<a href="https://narenderportfolio.netlify.app/" >Visit Now</a>🚀
+<a href="[https://narenderportfolio.netlify.app/](https://qusaiismail97.github.io/Qusaiismail.github.io/)" >Visit Now</a>🚀
 
 ## 📌 Tech Stack
 
@@ -15,7 +15,7 @@ react-tsparticle, react-typewriter-effect, react icons
 
 ### 📌 Snap Shot of Main Page 
 
-![image](https://user-images.githubusercontent.com/89627914/177928886-3f5f6123-80c1-4912-bd01-7ce3a9963877.png)
+![image](img/Screenshot 2024-07-02 104242.png)
 
 ### 📬 Connect With
 
