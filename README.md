@@ -15,7 +15,7 @@ react-tsparticle, react-typewriter-effect, react icons
 
 ### 📌 Snap Shot of Main Page 
 
-![image](img/Screenshot 2024-07-02 104242.png)
+![image]([img/(https://github.com/QusaiIsmail97/Qusaiismail.github.io/blob/2080d7c821e3fc8578b11b97d2fa418c5f4dace6/img/Screenshot%202024-07-02%20104242.png))
 
 ### 📬 Connect With
 
