@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qusai Ismail - خبير الذكاء الاصطناعي وعلوم البيانات</title>
+    <title>Qusai Ismail - AI & Data Science Innovator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
         :root {
             --primary-color: #2c3e50;
@@ -23,7 +23,7 @@
         }
 
         body, html {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -37,17 +37,12 @@
         }
 
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(44, 62, 80, 0.9);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 10px 0;
         }
 
         nav {
@@ -60,7 +55,8 @@
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
         }
 
         nav ul {
@@ -73,14 +69,14 @@
         }
 
         nav ul li a {
-            color: var(--text-color);
+            color: #fff;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: var(--secondary-color);
+            color: var(--accent-color);
         }
 
         .hero {
@@ -88,34 +84,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
             position: relative;
             overflow: hidden;
         }
 
         .hero-content {
+            text-align: center;
+            color: #fff;
             z-index: 1;
         }
 
         .hero h1 {
             font-size: 4rem;
             margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
             animation: fadeInUp 1s forwards;
         }
 
         .hero p {
             font-size: 1.5rem;
             margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(20px);
             animation: fadeInUp 1s 0.5s forwards;
         }
 
         @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -126,13 +122,11 @@
             display: inline-block;
             padding: 12px 30px;
             background-color: var(--accent-color);
-            color: white;
+            color: #fff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
             animation: fadeInUp 1s 1s forwards;
         }
 
@@ -144,12 +138,11 @@
 
         .social-icons {
             margin-top: 30px;
-            opacity: 0;
             animation: fadeIn 1s 1.5s forwards;
         }
 
         .social-icons a {
-            color: white;
+            color: #fff;
             font-size: 24px;
             margin: 0 10px;
             transition: all 0.3s ease;
@@ -157,12 +150,7 @@
 
         .social-icons a:hover {
             transform: translateY(-3px);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            color: var(--accent-color);
         }
 
         .section {
@@ -176,132 +164,30 @@
             color: var(--primary-color);
         }
 
-        .about-grid {
+        .skills-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
 
-        .about-image {
-            position: relative;
-            overflow: hidden;
+        .skill-card {
+            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .about-image img {
-            width: 100%;
-            display: block;
-            transition: transform 0.3s ease;
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-content h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .skill-icon {
+            font-size: 48px;
             color: var(--secondary-color);
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .skill {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 50px;
-            margin: 5px;
-            font-size: 0.9rem;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: var(--primary-color);
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            margin-right: -3px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            left: -17px;
-            background-color: white;
-            border: 4px solid var(--primary-color);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .right {
-            right: 0;
-        }
-
-        .left {
-            right: 50%;
-        }
-
-        .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid var(--primary-color);
-            border-width: 10px 10px 10px 0;
-            border-color: transparent var(--primary-color) transparent transparent;
-        }
-
-        .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid var(--primary-color);
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent var(--primary-color);
-        }
-
-        .left::after {
-            right: -16px;
-        }
-
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 6px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .projects-grid {
@@ -311,7 +197,7 @@
         }
 
         .project-card {
-            background-color: white;
+            background-color: #fff;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -342,7 +228,7 @@
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
-            background-color: white;
+            background-color: #fff;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -364,7 +250,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .form-group textarea {
@@ -372,8 +258,8 @@
         }
 
         .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--secondary-color);
+            color: #fff;
             border: none;
             padding: 12px 30px;
             border-radius: 50px;
@@ -383,25 +269,16 @@
         }
 
         .submit-btn:hover {
-            background-color: var(--secondary-color);
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         footer {
             background-color: var(--primary-color);
-            color: white;
+            color: #fff;
             text-align: center;
             padding: 20px 0;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .fade-in.appear {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .particles {
@@ -443,37 +320,8 @@
                 font-size: 1.2rem;
             }
             
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline::after {
-                right: 31px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-right: 70px;
-                padding-left: 25px;
-            }
-
-            .timeline-item::before {
-                right: 60px;
-                border: medium solid var(--primary-color);
-                border-width: 10px 10px 10px 0;
-                border-color: transparent var(--primary-color) transparent transparent;
-            }
-
-            .right::after, .left::after {
-                right: 15px;
-            }
-
-            .left {
-                right: 0%;
+            nav ul {
+                display: none;
             }
         }
     </style>
@@ -482,15 +330,12 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">قصي إسماعيل</div>
+                <a href="#" class="logo">Qusai Ismail</a>
                 <ul>
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#about">نبذة عني</a></li>
-                    <li><a href="#education">التعليم</a></li>
-                    <li><a href="#experience">الخبرات</a></li>
-                    <li><a href="#services">الخدمات</a></li>
-                    <li><a href="#projects">المشاريع</a></li>
-                    <li><a href="#contact">اتصل بي</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -499,9 +344,9 @@
     <section id="home" class="hero">
         <div class="particles"></div>
         <div class="hero-content">
-            <h1>قصي إسماعيل</h1>
-            <p>رائد في مجال الذكاء الاصطناعي وعلوم البيانات</p>
-            <a href="#contact" class="btn">تواصل معي</a>
+            <h1>Qusai Ismail</h1>
+            <p>AI & Data Science Innovator</p>
+            <a href="#contact" class="btn">Get in Touch</a>
             <div class="social-icons">
                 <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -510,100 +355,29 @@
         </div>
     </section>
 
-    <section id="about" class="section">
+    <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">نبذة عني</h2>
-            <div class="about-grid">
-                <img src="https://via.placeholder.com/500x500.png?text=Qusai+Ismail" alt="قصي إسماعيل">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Artificial Intelligence</h3>
+                    <p>Developing and implementing advanced AI techniques</p>
                 </div>
-                <div class="about-content fade-in">
-                    <h3>رائد في حلول الذكاء الاصطناعي</h3>
-                    <p>حاصل على درجة الماجستير في علوم الحاسوب من جامعة العلوم والتكنولوجيا الأردنية وبكالوريوس من جامعة اليرموك. أنا في طليعة الابتكار في مجال الذكاء الاصطناعي وعلوم البيانات. شغفي يكمن في دفع حدود ما هو ممكن بالتكنولوجيا وحل المشكلات المعقدة في العالم الحقيقي.</p>
-                    <div class="skills">
-                        <span class="skill">الذكاء الاصطناعي</span>
-                        <span class="skill">تعلم الآلة</span>
-                        <span class="skill">التعلم العميق</span>
-                        <span class="skill">رؤية الحاسوب</span>
-                        <span class="skill">معالجة اللغات الطبيعية</span>
-                        <span class="skill">تحليل البيانات</span>
-                        <span class="skill">تفسير النماذج</span>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Machine Learning</h3>
+                    <p>Building and training ML models for prediction and classification</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">التعليم</h2>
-            <div class="timeline">
-                <div class="timeline-item right fade-in">
-                    <div class="timeline-content">
-                        <h3>ماجستير في علوم الحاسوب</h3>
-                        <p>جامعة العلوم والتكنولوجيا الأردنية</p>
-                        <p>2020 - 2022</p>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Data Analysis</h3>
+                    <p>Extracting valuable insights from big data</p>
                 </div>
-                <div class="timeline-item left fade-in">
-                    <div class="timeline-content">
-                        <h3>بكالوريوس في علوم الحاسوب</h3>
-                        <p>جامعة اليرموك</p>
-                        <p>2016 - 2020</p>
-                        <p>تخرج بمرتبة الشرف</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">الخبرات</h2>
-            <div class="timeline">
-                <div class="timeline-item right fade-in">
-                    <div class="timeline-content">
-                        <h3>مساعد باحث في الذكاء الاصطناعي</h3>
-                        <p>جامعة العلوم والتكنولوجيا الأردنية</p>
-                        <p>2020 - حتى الآن</p>
-                        <p>إجراء أبحاث في مجالات الذكاء الاصطناعي وتعلم الآلة والتعلم العميق</p>
-                    </div>
-                </div>
-                <div class="timeline-item left fade-in">
-                    <div class="timeline-content">
-                        <h3>متدرب في علوم البيانات</h3>
-                        <p>مختبر الابتكار التقني</p>
-                        <p>صيف 2019</p>
-                        <p>العمل على مشاريع تحليل البيانات والنمذجة التنبؤية</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">خدماتنا</h2>
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=AI+Solutions');"></div>
-                    <div class="project-content">
-                        <h3><i class="fas fa-brain"></i> الذكاء الاصطناعي</h3>
-                        <p>تطوير حلول ذكاء اصطناعي متطورة للمشكلات المعقدة.</p>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Machine+Learning');"></div>
-                    <div class="project-content">
-                        <h3><i class="fas fa-cogs"></i> تعلم الآلة</h3>
-                        <p>إنشاء أنظمة ذكية تتعلم وتتكيف من البيانات.</p>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Data+Analysis');"></div>
-                    <div class="project-content">
-                        <h3><i class="fas fa-chart-bar"></i> تحليل البيانات</h3>
-                        <p>استخراج الرؤى والأنماط من مجموعات البيانات المعقدة.</p>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-language"></i></div>
+                    <h3>Natural Language Processing</h3>
+                    <p>Developing intelligent applications for text understanding and analysis</p>
                 </div>
             </div>
         </div>
@@ -611,34 +385,27 @@
     
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">مشاريع بارزة</h2>
+            <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Lexical+Complexity');"></div>
                     <div class="project-content">
-                        <h3><i class="fas fa-trophy"></i> التنبؤ بالتعقيد اللغوي</h3>
-                        <p>المركز الأول في مسابقة التنبؤ بالتعقيد اللغوي.</p>
+                        <h3>Lexical Complexity Prediction</h3>
+                        <p>First place in competition for predicting lexical complexity.</p>
                     </div>
                 </div>
-                <div class="project-card fade-in">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Car+Price+Prediction');"></div>
-                    <div class="project-content">
-                        <h3><i class="fas fa-car"></i> التنبؤ بأسعار السيارات المستعملة</h3>
-                        <p>تطوير نموذج للتنبؤ بأسعار السيارات المستعملة بناءً على ميزات متنوعة.</p>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=COVID-19+Research');"></div>
                     <div class="project-content">
-                        <h3><i class="fas fa-virus"></i> بحث لقاح كوفيد-19 mRNA</h3>
-                        <p>المركز الأول في مسابقة التنبؤ بتدهور لقاح mRNA.</p>
+                        <h3>COVID-19 Vaccine Research</h3>
+                        <p>First place in competition for predicting mRNA vaccine degradation.</p>
                     </div>
                 </div>
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Banking+Analysis');"></div>
                     <div class="project-content">
-                        <h3><i class="fas fa-university"></i> تحليل البيانات المصرفية</h3>
-                        <p>تحليل وتصنيف مجموعات البيانات المصرفية لاستخراج الرؤى.</p>
+                        <h3>Banking Data Analysis</h3>
+                        <p>Analyzed and classified banking datasets to derive insights.</p>
                     </div>
                 </div>
             </div>
@@ -647,33 +414,32 @@
 
     <section id="contact" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">تواصل معي</h2>
-            <form class="contact-form fade-in">
+            <h2 class="section-title">Get in Touch</h2>
+            <form class="contact-form">
                 <div class="form-group">
-                    <label for="name">الاسم</label>
+                    <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="message">الرسالة</label>
+                    <label for="message">Message</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 قصي إسماعيل. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2024 Qusai Ismail. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Particle effect for hero section
         function createParticles() {
             const particlesContainer = document.querySelector('.particles');
             const particleCount = 50;
@@ -683,7 +449,7 @@
                 particle.classList.add('particle');
                 particle.style.width = `${Math.random() * 10 + 5}px`;
                 particle.style.height = particle.style.width;
-                particle.style.right = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
                 particlesContainer.appendChild(particle);
@@ -701,7 +467,7 @@
         });
 
         // Fade-in animation on scroll
-        const faders = document.querySelectorAll('.fade-in');
+        const faders = document.querySelectorAll('.skill-card, .project-card');
         const appearOptions = {
             threshold: 0.5,
             rootMargin: "0px 0px -100px 0px"
@@ -712,7 +478,7 @@
                 if (!entry.isIntersecting) {
                     return;
                 } else {
-                    entry.target.classList.add('appear');
+                    entry.target.classList.add('fade-in');
                     appearOnScroll.unobserve(entry.target);
                 }
             });
@@ -726,9 +492,9 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.classList.add('scrolled');
+                header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
             } else {
-                header.classList.remove('scrolled');
+                header.style.backgroundColor = 'transparent';
             }
         });
 
@@ -740,15 +506,28 @@
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            console.log(`تم إرسال الرسالة إلى qusaibanyismail@gmail.com:\nمن: ${name} (${email})\nالرسالة: ${message}`);
+            console.log(`Message sent to qusaibanyismail@gmail.com:\nFrom: ${name} (${email})\nMessage: ${message}`);
 
-            alert('شكراً لرسالتك! تم إرسالها إلى qusaibanyismail@gmail.com. سأرد عليك قريباً.');
+            alert('Thank you for your message! It has been sent to qusaibanyismail@gmail.com. I will get back to you soon.');
             form.reset();
         });
 
         // Initialize particle effect
         createParticles();
+
+        // Typing effect for hero section
+        const heroText = document.querySelector('.hero p');
+        const text = heroText.textContent;
+        heroText.textContent = '';
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                heroText.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        setTimeout(typeWriter, 1000);
     </script>
 </body>
 </html>
-                    <img src="https://via.placeholder.</antArtifact>
