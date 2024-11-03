@@ -3,460 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qusai Ismail - AI & Data Science Innovator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Qusai Ismail - Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --background-color: #ecf0f1;
-            --text-color: #34495e;
-        }
-
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body, html {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+        body {
+            background-color: #f5f5f5;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        .container {
+        /* Header styles */
+        .header {
+            background-color: #2563eb;
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-links a:hover {
+            color: #bfdbfe;
+        }
+
+        /* Navigation styles */
+        .nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: rgba(44, 62, 80, 0.9);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        nav ul {
-            display: flex;
-            list-style-type: none;
-        }
-
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: none;
+            cursor: pointer;
             font-weight: 500;
-            transition: color 0.3s ease;
+            white-space: nowrap;
+            transition: all 0.3s;
         }
 
-        nav ul li a:hover {
-            color: var(--accent-color);
+        .nav-button:hover {
+            background-color: #f3f4f6;
         }
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #3498db, #8e44ad);
-            position: relative;
-            overflow: hidden;
+        .nav-button.active {
+            background-color: #2563eb;
+            color: white;
         }
 
-        .hero-content {
-            text-align: center;
-            color: #fff;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s forwards;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            animation: fadeInUp 1s 0.5s forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--accent-color);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s 1s forwards;
-        }
-
-        .btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-icons {
-            margin-top: 30px;
-            animation: fadeIn 1s 1.5s forwards;
-        }
-
-        .social-icons a {
-            color: #fff;
-            font-size: 24px;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-3px);
-            color: var(--accent-color);
+        /* Main content styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
         .section {
-            padding: 100px 0;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: var(--primary-color);
+        .section.active {
+            display: block;
         }
 
+        .section h2 {
+            font-size: 1.875rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        /* Experience and Education items */
+        .timeline-item {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid #2563eb;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: #6b7280;
+        }
+
+        /* Skills section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 1.5rem;
         }
 
-        .skill-card {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .skill-category {
+            background-color: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
         }
 
-        .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        .skill-list {
+            list-style-position: inside;
+            margin-top: 1rem;
         }
 
-        .skill-icon {
-            font-size: 48px;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
+        /* Publications and Projects */
+        .card {
+            background-color: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .form-group textarea {
-            height: 150px;
-        }
-
-        .submit-btn {
-            background-color: var(--secondary-color);
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .particle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 15s infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-30px) translateX(30px);
-            }
-            50% {
-                transform: translateY(-60px) translateX(-30px);
-            }
-            75% {
-                transform: translateY(-30px) translateX(60px);
-            }
-        }
-
+        /* Responsive design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            .header h1 {
+                font-size: 2rem;
             }
-            
-            .hero p {
-                font-size: 1.2rem;
+
+            .nav-container {
+                justify-content: start;
             }
-            
-            nav ul {
-                display: none;
+
+            .section {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">Qusai Ismail</a>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+    <!-- Header -->
+    <header class="header">
+        <h1>Qusai Ismail</h1>
+        <p>Computer Science Researcher & AI Specialist</p>
+        <div class="contact-links">
+            <a href="mailto:qusaibanyismail@gmail.com">qusaibanyismail@gmail.com</a>
+            <span>|</span>
+            <a href="tel:0770131516">0770131516</a>
+            <span>|</span>
+            <a href="https://linkedin.com/in/qusai-ismail-465b44116">LinkedIn</a>
         </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="particles"></div>
-        <div class="hero-content">
-            <h1>Qusai Ismail</h1>
-            <p>AI & Data Science Innovator</p>
-            <a href="#contact" class="btn">Get in Touch</a>
-            <div class="social-icons">
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <button class="nav-button active" data-section="about">About</button>
+            <button class="nav-button" data-section="experience">Experience</button>
+            <button class="nav-button" data-section="education">Education</button>
+            <button class="nav-button" data-section="skills">Skills</button>
+            <button class="nav-button" data-section="publications">Publications</button>
+            <button class="nav-button" data-section="projects">Projects</button>
         </div>
-    </section>
+    </nav>
 
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-title">My Skills</h2>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about" class="section active">
+            <h2>About Me</h2>
+            <p>Currently pursuing an M.Sc. at Jordan University of Science and Technology in computer science. Research interests include Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, interpretation model, adversarial attack, pattern Recognition, and Natural Language Processing.</p>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <h2>Experience</h2>
+            <div class="timeline-item">
+                <h4>Teaching and Research Assistant</h4>
+                <p>Al Hussein Technical University (HTU)</p>
+                <p>Mar 2023 - Present</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Teacher Assistant</h4>
+                <p>Jordan University of Science and Technology</p>
+                <p>Feb 2021 - Jun 2022</p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <h2>Education</h2>
+            <div class="timeline-item">
+                <h4>Master's degree in Computer Science</h4>
+                <p>Jordan University of Science and Technology</p>
+                <p>Sep 2020 - Jun 2023</p>
+                <p style="color: #2563eb;">GPA: Distinguished</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Bachelor's degree in Computer Science</h4>
+                <p>Yarmouk University</p>
+                <p>2015 – 2019</p>
+                <p style="color: #2563eb;">With Honors (Ranked Second)</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2>Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                    <h3>Artificial Intelligence</h3>
-                    <p>Developing and implementing advanced AI techniques</p>
+                <div class="skill-category">
+                    <h3>Programming & Tools</h3>
+                    <ul class="skill-list">
+                        <li>Python (Advanced)</li>
+                        <li>C++</li>
+                        <li>PHP</li>
+                        <li>Java</li>
+                    </ul>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>Machine Learning</h3>
-                    <p>Building and training ML models for prediction and classification</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
-                    <h3>Data Analysis</h3>
-                    <p>Extracting valuable insights from big data</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-language"></i></div>
-                    <h3>Natural Language Processing</h3>
-                    <p>Developing intelligent applications for text understanding and analysis</p>
+                <div class="skill-category">
+                    <h3>AI & Machine Learning</h3>
+                    <ul class="skill-list">
+                        <li>Machine Learning Algorithms</li>
+                        <li>Deep Learning (LSTM, RNN)</li>
+                        <li>Transformers (BERT, RoBERTa, T5)</li>
+                        <li>Computer Vision (Transfer Learning)</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Lexical+Complexity');"></div>
-                    <div class="project-content">
-                        <h3>Lexical Complexity Prediction</h3>
-                        <p>First place in competition for predicting lexical complexity.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=COVID-19+Research');"></div>
-                    <div class="project-content">
-                        <h3>COVID-19 Vaccine Research</h3>
-                        <p>First place in competition for predicting mRNA vaccine degradation.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Banking+Analysis');"></div>
-                    <div class="project-content">
-                        <h3>Banking Data Analysis</h3>
-                        <p>Analyzed and classified banking datasets to derive insights.</p>
-                    </div>
-                </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section">
+            <h2>Publications</h2>
+            <div class="card">
+                <h4>Using Machine Learning Algorithms to Predict the State of Financial Inclusion in Africa</h4>
+                <p>2021 12th International Conference on Information and Communication Systems (ICICS)</p>
+                <p>2021</p>
             </div>
-        </div>
-    </section>
+            <div class="card">
+                <h4>JUST-BLUE at SemEval-2021 Task 1: Predicting Lexical Complexity using BERT and RoBERTa Pre-trained Language Models</h4>
+                <p>Proceedings of the 15th International Workshop on Semantic Evaluation (SemEval-2021)</p>
+                <p>2021</p>
+            </div>
+        </section>
 
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Qusai Ismail. All rights reserved.</p>
-        </div>
-    </footer>
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2>Projects & Competitions</h2>
+            <h3>Notable Competitions</h3>
+            <div class="card">
+                <ul class="skill-list">
+                    <li>SemEval-2021 Task 1: Predicting Lexical Complexity (Rank 1 out of 189)</li>
+                    <li>COVID-19 tweets classification (Rank 1 out of 38)</li>
+                    <li>Sentiment analysis about COVID-19 Vaccine</li>
+                </ul>
+            </div>
+            <h3>Projects</h3>
+            <div class="card">
+                <h4>Graduation Project</h4>
+                <p>Jordanian money Classification based on CNN Algorithm (Unity Application)</p>
+            </div>
+        </section>
+    </main>
 
     <script>
-        function createParticles() {
-            const particlesContainer = document.querySelector('.particles');
-            const particleCount = 50;
+        // Navigation functionality
+        document.querySelector('.nav-container').addEventListener('click', function(e) {
+            if (e.target.classList.contains('nav-button')) {
+                // Update active button
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.width = `${Math.random() * 10 + 5}px`;
-                particle.style.height = particle.style.width;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                particlesContainer.appendChild(particle);
+                // Update active section
+                const sectionId = e.target.dataset.section;
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
             }
-        }
+        });
 
-        // Smooth scrolling for navigation
+        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -466,68 +337,15 @@
             });
         });
 
-        // Fade-in animation on scroll
-        const faders = document.querySelectorAll('.skill-card, .project-card');
-        const appearOptions = {
-            threshold: 0.5,
-            rootMargin: "0px 0px -100px 0px"
-        };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('fade-in');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
+        // Add scroll shadow to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 0) {
+                nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
             } else {
-                header.style.backgroundColor = 'transparent';
+                nav.style.boxShadow = 'none';
             }
         });
-
-        // Form submission
-        const form = document.querySelector('.contact-form');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-
-            console.log(`Message sent to qusaibanyismail@gmail.com:\nFrom: ${name} (${email})\nMessage: ${message}`);
-
-            alert('Thank you for your message! It has been sent to qusaibanyismail@gmail.com. I will get back to you soon.');
-            form.reset();
-        });
-
-        // Initialize particle effect
-        createParticles();
-
-        // Typing effect for hero section
-        const heroText = document.querySelector('.hero p');
-        const text = heroText.textContent;
-        heroText.textContent = '';
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                heroText.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-        setTimeout(typeWriter, 1000);
     </script>
 </body>
 </html>
