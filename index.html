@@ -1,483 +1,203 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qusai Ismail - Portfolio</title>
-    <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+import React, { useState } from 'react';
+import { Book, Briefcase, Code, FileText, GraduationCap, User } from 'lucide-react';
 
-        body {
-            background-color: #f5f5f5;
-            line-height: 1.6;
-        }
+export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState('about');
+  
+  const sections = [
+    { id: 'about', icon: User, label: 'About' },
+    { id: 'experience', icon: Briefcase, label: 'Experience' },
+    { id: 'education', icon: GraduationCap, label: 'Education' },
+    { id: 'skills', icon: Code, label: 'Skills' },
+    { id: 'publications', icon: Book, label: 'Publications' },
+    { id: 'projects', icon: FileText, label: 'Projects' }
+  ];
 
-        /* Header styles */
-        .header {
-            background-color: #2563eb;
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-links a:hover {
-            color: #bfdbfe;
-        }
-
-        /* Navigation styles */
-        .nav {
-            background-color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            padding: 0.5rem;
-        }
-
-        .nav-button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            background: none;
-            cursor: pointer;
-            font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.3s;
-        }
-
-        .nav-button:hover {
-            background-color: #f3f4f6;
-        }
-
-        .nav-button.active {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        /* Main content styles */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .section {
-            background-color: white;
-            border-radius: 0.5rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .section h2 {
-            font-size: 1.875rem;
-            margin-bottom: 1.5rem;
-            color: #1f2937;
-        }
-
-        .section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-
-        /* Experience and Education items */
-        .timeline-item {
-            margin-bottom: 2rem;
-            padding-left: 1.5rem;
-            border-left: 3px solid #2563eb;
-        }
-
-        .timeline-item h4 {
-            font-size: 1.25rem;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-item p {
-            color: #6b7280;
-        }
-
-        /* Skills section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category {
-            background-color: #f3f4f6;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-        }
-
-        .skill-list {
-            list-style-position: inside;
-            margin-top: 1rem;
-        }
-
-        /* Publications and Projects */
-        .card {
-            background-color: #f3f4f6;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .nav-container {
-                justify-content: start;
-            }
-
-            .section {
-                padding: 1.5rem;
-            }
-        }
-        body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background: #f8f9fa;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
-
-    .logo-container {
-      display: flex;
-      gap: 32px;
-    }
-
-    .logo-link {
-      text-decoration: none;
-      position: relative;
-    }
-
-    .logo {
-      width: 48px;
-      height: 48px;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .logo-link:hover .logo {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .logo-link:active .logo {
-      transform: translateY(0);
-    }
-
-    /* Google Scholar Logo */
-    .scholar-logo {
-      background: #4285f4;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* ResearchGate Logo */
-    .researchgate-logo {
-      background: #00ccbb;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .tooltip {
-      position: absolute;
-      background: #333;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 14px;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      pointer-events: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .tooltip::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 0 6px 6px 6px;
-      border-style: solid;
-      border-color: transparent transparent #333 transparent;
-    }
-
-    .logo-link:hover .tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(5px);
-    }
-
-    /* Add ripple effect */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <h1>Qusai Ismail</h1>
-        <p>Computer Science Researcher & AI Specialist</p>
-        <div class="contact-links">
-            <a href="mailto:qusaibanyismail@gmail.com">qusaibanyismail@gmail.com</a>
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-blue-600 text-white py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-4">Qusai Ismail</h1>
+          <p className="text-xl mb-6">Computer Science Researcher & AI Specialist</p>
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <a href="mailto:qusaibanyismail@gmail.com" className="hover:text-blue-200 transition">
+              qusaibanyismail@gmail.com
+            </a>
             <span>|</span>
-            <a href="tel:0770131516">0770131516</a>
+            <a href="tel:0770131516" className="hover:text-blue-200 transition">
+              0770131516
+            </a>
             <span>|</span>
-            <a href="https://linkedin.com/in/qusai-ismail-465b44116">LinkedIn</a>
+            <a href="https://linkedin.com/in/qusai-ismail-465b44116" className="hover:text-blue-200 transition">
+              LinkedIn
+            </a>
+          </div>
+          <div className="flex justify-center gap-6">
+            <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer"
+               className="p-3 bg-white text-blue-600 rounded-lg hover:-translate-y-1 transition">
+              GS
+            </a>
+            <a href="https://www.researchgate.net" target="_blank" rel="noopener noreferrer"
+               className="p-3 bg-teal-500 text-white rounded-full hover:-translate-y-1 transition">
+              RG
+            </a>
+          </div>
         </div>
-        <div class="logo-container">
-    <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="logo-link" id="scholar-link">
-      <div class="logo scholar-logo">
-        GS
-      </div>
-      <div class="tooltip">Visit Google Scholar</div>
-    </a>
-    
-    <a href="https://www.researchgate.net" target="_blank" rel="noopener noreferrer" class="logo-link" id="researchgate-link">
-      <div class="logo researchgate-logo">
-        RG
-      </div>
-      <div class="tooltip">Visit ResearchGate</div>
-    </a>
+      </header>
+
+      {/* Navigation */}
+      <nav className="sticky top-0 bg-white shadow-sm z-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex overflow-x-auto py-4 gap-2">
+            {sections.map(({ id, icon: Icon, label }) => (
+              <button
+                key={id}
+                onClick={() => setActiveSection(id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                  activeSection === id 
+                    ? 'bg-blue-600 text-white' 
+                    : 'hover:bg-gray-100'
+                }`}
+              >
+                <Icon size={20} />
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
-    </header>
+      </nav>
 
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <button class="nav-button active" data-section="about">About</button>
-            <button class="nav-button" data-section="experience">Experience</button>
-            <button class="nav-button" data-section="education">Education</button>
-            <button class="nav-button" data-section="skills">Skills</button>
-            <button class="nav-button" data-section="publications">Publications</button>
-            <button class="nav-button" data-section="projects">Projects</button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- About Section -->
-        <section id="about" class="section active">
-            <h2>About Me</h2>
-            <p>Qusai Ismail is pursuing his M.Sc. in computer science at the Jordan University of Science and Technology. received his B.Sc. Degree in Computer Science from Yarmouk University in 2019 with honors. His research interests include Artificial Intelligence, Machine Learning, deep learning, computer Vision, Pattern Recognition, model interpretation, and Natural Language Processing.
-
-
-He is also a researcher in the field of natural language processing (NLP) and computational linguistics, and he is known for his work in lexical complexity prediction. He co-authored a paper for the SemEval-2021 competition, specifically working on Task 1, which involved predicting lexical complexity. This task is essential for applications like text simplification and reformatting, where understanding the complexity level of words and phrases can enhance accessibility and comprehension in various contexts. The team, including Qusai, utilized advanced NLP models like BERT and RoBERTa, achieving impressive accuracy and ranking highly in the competition with their innovative approach
-</p>
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-4 py-8">
+        {/* About Section */}
+        <section className={`${activeSection === 'about' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-2xl font-bold mb-4">About Me</h2>
+            <p className="text-gray-600 leading-relaxed">
+              Qusai Ismail is pursuing his M.Sc. in computer science at the Jordan University of Science and Technology. 
+              He received his B.Sc. Degree in Computer Science from Yarmouk University in 2019 with honors. His research 
+              interests include Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Pattern Recognition, 
+              Model Interpretation, and Natural Language Processing.
+            </p>
+            <p className="text-gray-600 leading-relaxed mt-4">
+              He is also a researcher in the field of natural language processing (NLP) and computational linguistics, 
+              known for his work in lexical complexity prediction. He co-authored a paper for the SemEval-2021 competition, 
+              specifically working on Task 1, which involved predicting lexical complexity.
+            </p>
+          </div>
         </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="section">
-            <h2>Experience</h2>
-            <div class="timeline-item">
-                <h4>Teaching and Research Assistant</h4>
-                <p>Al Hussein Technical University (HTU)</p>
-                <p>Mar 2023 - Present</p>
+        {/* Experience Section */}
+        <section className={`${activeSection === 'experience' ? 'block' : 'hidden'}`}>
+          <div className="space-y-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-2xl font-bold mb-4">Experience</h2>
+              <div className="border-l-4 border-blue-600 pl-4 mb-6">
+                <h3 className="text-xl font-semibold">Teaching and Research Assistant</h3>
+                <p className="text-gray-600">Al Hussein Technical University (HTU)</p>
+                <p className="text-gray-500">Mar 2023 - Present</p>
+              </div>
+              <div className="border-l-4 border-blue-600 pl-4">
+                <h3 className="text-xl font-semibold">Teacher Assistant</h3>
+                <p className="text-gray-600">Jordan University of Science and Technology</p>
+                <p className="text-gray-500">Feb 2021 - Jun 2022</p>
+              </div>
             </div>
-            <div class="timeline-item">
-                <h4>Teacher Assistant</h4>
-                <p>Jordan University of Science and Technology</p>
-                <p>Feb 2021 - Jun 2022</p>
-            </div>
+          </div>
         </section>
 
-        <!-- Education Section -->
-        <section id="education" class="section">
-            <h2>Education</h2>
-            <div class="timeline-item">
-                <h4>Master's degree in Computer Science</h4>
-                <p>Jordan University of Science and Technology</p>
-                <p>Sep 2020 - Jun 2023</p>
-                <p style="color: #2563eb;">GPA: Distinguished</p>
+        {/* Education Section */}
+        <section className={`${activeSection === 'education' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-2xl font-bold mb-4">Education</h2>
+            <div className="border-l-4 border-blue-600 pl-4 mb-6">
+              <h3 className="text-xl font-semibold">Master's degree in Computer Science</h3>
+              <p className="text-gray-600">Jordan University of Science and Technology</p>
+              <p className="text-gray-500">Sep 2020 - Jun 2023</p>
+              <p className="text-blue-600 font-medium">GPA: Distinguished</p>
             </div>
-            <div class="timeline-item">
-                <h4>Bachelor's degree in Computer Science</h4>
-                <p>Yarmouk University</p>
-                <p>2015 – 2019</p>
-                <p style="color: #2563eb;">With Honors (Ranked Second)</p>
+            <div className="border-l-4 border-blue-600 pl-4">
+              <h3 className="text-xl font-semibold">Bachelor's degree in Computer Science</h3>
+              <p className="text-gray-600">Yarmouk University</p>
+              <p className="text-gray-500">2015 – 2019</p>
+              <p className="text-blue-600 font-medium">With Honors (Ranked Second)</p>
             </div>
+          </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="section">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programming & Tools</h3>
-                    <ul class="skill-list">
-                        <li>Python (Advanced)</li>
-                        <li>C++</li>
-                        <li>PHP</li>
-                        <li>Java</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>AI & Machine Learning</h3>
-                    <ul class="skill-list">
-                        <li>Machine Learning Algorithms</li>
-                        <li>Deep Learning (LSTM, RNN)</li>
-                        <li>Transformers (BERT, RoBERTa, T5)</li>
-                        <li>Computer Vision (Transfer Learning)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Publications Section -->
-        <section id="publications" class="section">
-            <h2>Publications</h2>
-            <div class="card">
-                <h4>Using Machine Learning Algorithms to Predict the State of Financial Inclusion in Africa</h4>
-                <p>2021 12th International Conference on Information and Communication Systems (ICICS)</p>
-                <p>2021</p>
-            </div>
-            <div class="card">
-                <h4>JUST-BLUE at SemEval-2021 Task 1: Predicting Lexical Complexity using BERT and RoBERTa Pre-trained Language Models</h4>
-                <p>Proceedings of the 15th International Workshop on Semantic Evaluation (SemEval-2021)</p>
-                <p>2021</p>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section">
-            <h2>Projects & Competitions</h2>
-            <h3>Notable Competitions</h3>
-            <div class="card">
-                <ul class="skill-list">
-                    <li>SemEval-2021 Task 1: Predicting Lexical Complexity (Rank 1 out of 189)</li>
-                    <li>COVID-19 tweets classification (Rank 1 out of 38)</li>
-                    <li>Sentiment analysis about COVID-19 Vaccine</li>
+        {/* Skills Section */}
+        <section className={`${activeSection === 'skills' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-2xl font-bold mb-6">Technical Skills</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">Programming & Tools</h3>
+                <ul className="space-y-2">
+                  <li className="text-gray-600">Python (Advanced)</li>
+                  <li className="text-gray-600">C++</li>
+                  <li className="text-gray-600">PHP</li>
+                  <li className="text-gray-600">Java</li>
                 </ul>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">AI & Machine Learning</h3>
+                <ul className="space-y-2">
+                  <li className="text-gray-600">Machine Learning Algorithms</li>
+                  <li className="text-gray-600">Deep Learning (LSTM, RNN)</li>
+                  <li className="text-gray-600">Transformers (BERT, RoBERTa, T5)</li>
+                  <li className="text-gray-600">Computer Vision (Transfer Learning)</li>
+                </ul>
+              </div>
             </div>
-            <h3>Projects</h3>
-            <div class="card">
-                <h4>Graduation Project</h4>
-                <p>Jordanian money Classification based on CNN Algorithm (Unity Application)</p>
-            </div>
+          </div>
         </section>
-    </main>
 
-    <script>
-        // Navigation functionality
-        document.querySelector('.nav-container').addEventListener('click', function(e) {
-            if (e.target.classList.contains('nav-button')) {
-                // Update active button
-                document.querySelectorAll('.nav-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                e.target.classList.add('active');
+        {/* Publications Section */}
+        <section className={`${activeSection === 'publications' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-2xl font-bold mb-6">Publications</h2>
+            <div className="space-y-4">
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold">Using Machine Learning Algorithms to Predict the State of Financial Inclusion in Africa</h3>
+                <p className="text-gray-600">2021 12th International Conference on Information and Communication Systems (ICICS)</p>
+                <p className="text-gray-500">2021</p>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold">JUST-BLUE at SemEval-2021 Task 1: Predicting Lexical Complexity using BERT and RoBERTa Pre-trained Language Models</h3>
+                <p className="text-gray-600">Proceedings of the 15th International Workshop on Semantic Evaluation (SemEval-2021)</p>
+                <p className="text-gray-500">2021</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                // Update active section
-                const sectionId = e.target.dataset.section;
-                document.querySelectorAll('.section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                document.getElementById(sectionId).classList.add('active');
-            }
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Add scroll shadow to navigation
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 0) {
-                nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
+        {/* Projects Section */}
+        <section className={`${activeSection === 'projects' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-2xl font-bold mb-6">Projects & Competitions</h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Notable Competitions</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <ul className="space-y-2">
+                    <li className="text-gray-600">SemEval-2021 Task 1: Predicting Lexical Complexity (Rank 1 out of 189)</li>
+                    <li className="text-gray-600">COVID-19 tweets classification (Rank 1 out of 38)</li>
+                    <li className="text-gray-600">Sentiment analysis about COVID-19 Vaccine</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Projects</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold">Graduation Project</h4>
+                  <p className="text-gray-600">Jordanian money Classification based on CNN Algorithm (Unity Application)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
