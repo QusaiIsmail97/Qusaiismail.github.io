@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -8,215 +9,156 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-
-        header {
-            background: linear-gradient(145deg, #1e3c72, #2a5298);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom-left-radius: 40% 50px;
-            border-bottom-right-radius: 40% 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.25rem;
-            margin-bottom: 20px;
-        }
-
-        header .social-links a {
-            margin: 0 10px;
-            color: white;
-            font-size: 1.25rem;
-            transition: color 0.3s ease;
-        }
-
-        header .social-links a:hover {
-            color: #ffcc00;
-        }
-
-        .nav-button {
-            background-color: #2a5298;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            margin: 10px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .nav-button:hover {
-            background-color: #1e3c72;
-            transform: scale(1.05);
-        }
-
-        .card {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .social-icon {
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Animation styles */
-        .news-tag {
-            transition: all 0.3s ease;
-        }
-
-        .news-tag:hover {
-            transform: translateY(-2px);
-            background-color: #e0f7fa;
-        }
+        /* Optional: You can add custom styles here */
     </style>
 </head>
 <body>
     <div id="root"></div>
+
     <script type="text/babel">
         const { useState, useEffect } = React;
+        const { Book, Briefcase, Code, FileText, GraduationCap, User, ai } = {
+            Book: () => <span>📚</span>,
+            Briefcase: () => <span>💼</span>,
+            Code: () => <span>💻</span>,
+            FileText: () => <span>📄</span>,
+            GraduationCap: () => <span>🎓</span>,
+            User: () => <span>👤</span>,
+            ai: () => <span>👤</span>,
+        };
 
-        // Custom Icons Components
-        const GSIcon = () => (
-            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
-                <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm6.804 13.376c-.103.706-.32 1.343-.647 1.913-.328.57-.743 1.07-1.246 1.497-.503.427-1.085.764-1.745 1.013-.66.248-1.365.373-2.116.373-.79 0-1.528-.139-2.214-.416-.686-.277-1.286-.663-1.8-1.157-.514-.494-.92-1.084-1.218-1.77-.298-.686-.447-1.435-.447-2.247 0-.776.135-1.513.404-2.212.27-.7.643-1.31 1.12-1.832.477-.522 1.047-.936 1.709-1.242.662-.306 1.383-.459 2.162-.459.873 0 1.69.174 2.447.523.757.349 1.384.835 1.883 1.458l-1.267 1.204c-.298-.365-.68-.66-1.147-.886-.467-.226-.98-.339-1.54-.339-.55 0-1.054.1-1.51.298-.457.199-.85.47-1.18.815-.33.345-.588.75-.775 1.215-.187.465-.28.962-.28 1.49 0 .55.098 1.063.294 1.54.196.477.467.89.813 1.24.346.35.756.625 1.23.826.474.201.992.302 1.554.302.29 0 .59-.037.902-.11.312-.073.61-.187.895-.342.285-.155.545-.356.78-.602.235-.246.425-.544.57-.894h-3.254v-1.797h5.307c.058.365.087.746.087 1.142 0 .794-.147 1.53-.44 2.21z"/>
-            </svg>
-        );
-
-        const RGIcon = () => (
-            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
-                <path d="M19.586 0c-2.118 0-3.832 1.714-3.832 3.832 0 2.118 1.714 3.832 3.832 3.832 2.118 0 3.832-1.714 3.832-3.832 0-2.118-1.714-3.832-3.832-3.832zM0 19.682h3.875v-14.103h-3.875v14.103zm19.586-7.371c-1.365 0-2.472 1.107-2.472 2.472s1.107 2.472 2.472 2.472 2.472-1.107 2.472-2.472-1.107-2.472-2.472-2.472z"/>
-            </svg>
-        );
-
-        const Portfolio = () => {
+        function Portfolio() {
             const [activeSection, setActiveSection] = useState('about');
             const sections = [
-                { id: 'about', icon: () => <span>👤</span>, label: 'About' },
-                { id: 'experience', icon: () => <span>💼</span>, label: 'Experience' },
-                { id: 'education', icon: () => <span>🎓</span>, label: 'Education' },
-                { id: 'skills', icon: () => <span>💻</span>, label: 'Skills' },
-                { id: 'publications', icon: () => <span>📚</span>, label: 'Publications' },
-                { id: 'projects', icon: () => <span>📄</span>, label: 'Projects' },
-                { id: 'news', icon: () => <span>📰</span>, label: 'News' },
+                { id: 'about', icon: User, label: 'About' },
+                { id: 'experience', icon: Briefcase, label: 'Experience' },
+                { id: 'education', icon: GraduationCap, label: 'Education' },
+                { id: 'skills', icon: Code, label: 'Skills' },
+                { id: 'publications', icon: Book, label: 'Publications' },
+                { id: 'projects', icon: FileText, label: 'Projects' },
+                { id: 'news', icon: FileText, label: 'News' }
             ];
-
-            const [nodes, setNodes] = useState([]);
-            const newsItems = [
-                { title: "AI Breakthrough in Natural Language Processing", date: "March 2024", content: "New advancements in NLP are opening doors to better human-computer communication." },
-                { title: "AI in Healthcare: Revolutionizing Diagnostics", date: "April 2024", content: "AI is transforming diagnostics with enhanced image recognition and predictive analytics, leading to faster and more accurate treatments." }
-            ];
-
-            useEffect(() => {
-                setNodes(newsItems);
-            }, []);
 
             return (
-                <div className="bg-gray-100 min-h-screen">
-                    <header className="p-8 text-center">
-                        <h1 className="text-5xl font-bold">محفظتي</h1>
-                        <p className="text-xl">أهلاً بك في محفظتي الشخصية</p>
-                        <div className="mt-4 social-links">
-                            <a href="https://github.com" target="_blank" className="social-icon">
-                                <GSIcon />  GitHub
-                            </a>
-                            <a href="https://www.linkedin.com" target="_blank" className="social-icon">
-                                <RGIcon />  LinkedIn
-                            </a>
-                            <a href="https://scholar.google.com" target="_blank" className="social-icon">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Google_Scholar_logo.svg" alt="Google Scholar" className="w-6 h-6 inline-block" /> Google Scholar
-                            </a>
+                <div className="min-h-screen bg-gray-50">
+                    {/* Header with Profile Image */}
+                    <header className="relative bg-gradient-to-br from-blue-900 to-purple-900 text-white py-16 px-6">
+                        <div className="max-w-4xl mx-auto text-center">
+                            {/* Profile Image and Details */}
+                            <div className="flex flex-col sm:flex-row justify-center items-center mb-8">
+                                <img
+                                    src="your-image.jpg"  // Replace with the actual path of your image
+                                    alt="Qusai Ismail"
+                                    className="w-32 h-32 rounded-full border-4 border-white mb-4 sm:mb-0"
+                                />
+                                <div className="text-center sm:text-left sm:ml-8">
+                                    <h1 className="text-4xl font-bold text-white mb-2">Qusai Ismail</h1>
+                                    <p className="text-xl mb-6">Computer Science Researcher & AI Specialist</p>
+                                    <div className="flex justify-center sm:justify-start gap-6">
+                                        <a href="mailto:qusaibanyismail@gmail.com" className="hover:text-blue-200 transition">
+                                            <span>📧 Email</span>
+                                        </a>
+                                        <span>|</span>
+                                        <a href="tel:0770131516" className="hover:text-blue-200 transition">
+                                            <span>📞 Call</span>
+                                        </a>
+                                        <span>|</span>
+                                        <a href="https://linkedin.com/in/qusai-ismail-465b44116" className="hover:text-blue-200 transition">
+                                            LinkedIn
+                                        </a>
+                                    </div>
+                                    <div className="flex justify-center sm:justify-start gap-6 mt-4">
+                                        <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" 
+                                           className="p-3 bg-white text-blue-900 rounded-lg hover:-translate-y-1 transition">
+                                            GS
+                                        </a>
+                                        <a href="https://www.researchgate.net" target="_blank" rel="noopener noreferrer"
+                                           className="p-3 bg-teal-500 text-white rounded-full hover:-translate-y-1 transition">
+                                            RG
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </header>
 
-                    <nav className="flex justify-center space-x-6 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-lg">
-                        {sections.map((section) => (
-                            <button
-                                key={section.id}
-                                className={`p-3 hover:bg-indigo-700 rounded-xl transition-transform transform ${activeSection === section.id ? 'bg-indigo-800' : ''}`}
-                                onClick={() => setActiveSection(section.id)}
-                            >
-                                {section.icon()} {section.label}
-                            </button>
-                        ))}
+                    {/* Navigation */}
+                    <nav className="sticky top-0 bg-white shadow-sm z-50">
+                        <div className="max-w-4xl mx-auto px-4">
+                            <div className="flex overflow-x-auto py-4 gap-4">
+                                {sections.map(({ id, icon: Icon, label }) => (
+                                    <button
+                                        key={id}
+                                        onClick={() => setActiveSection(id)}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                                            activeSection === id 
+                                                ? 'bg-blue-600 text-white' 
+                                                : 'hover:bg-gray-100'
+                                        }`}
+                                    >
+                                        <Icon size={20} />
+                                        {label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </nav>
 
-                    <main className="max-w-7xl mx-auto p-6">
-                        {activeSection === 'about' && (
-                            <div>
-                                <h2 className="text-2xl font-bold text-center mb-6">عنّي</h2>
-                                <p className="text-lg">أنا مطور ويب متمرس مع شغف كبير في مجالات الذكاء الاصطناعي وتحليل البيانات. أتمتع بخبرة واسعة في تطوير الأنظمة المعقدة وتحسين الأداء باستخدام تقنيات متقدمة.</p>
+                    {/* Main Content */}
+                    <main className="max-w-4xl mx-auto px-4 py-8">
+                        {/* About Section */}
+                        <section className={`${activeSection === 'about' ? 'block' : 'hidden'}`}>
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h2 className="text-2xl font-bold mb-4">About Me</h2>
+                                <p className="text-gray-600 leading-relaxed">
+                                    Qusai Ismail is pursuing his M.Sc. in computer science at the Jordan University of Science and Technology. 
+                                    He received his B.Sc. Degree in Computer Science from Yarmouk University in 2019 with honors. His research 
+                                    interests include Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Pattern Recognition, 
+                                    Model Interpretation, and Natural Language Processing.
+                                </p>
+                                <p className="text-gray-600 leading-relaxed mt-4">
+                                    He is also a researcher in the field of natural language processing (NLP) and computational linguistics, 
+                                    known for his work in lexical complexity prediction. He co-authored a paper for the SemEval-2021 competition, 
+                                    specifically working on Task 1, which involved predicting lexical complexity.
+                                </p>
                             </div>
-                        )}
-                        {activeSection === 'news' && (
-                            <div>
-                                <h2 className="text-2xl font-bold text-center mb-6">آخر الأخبار في الذكاء الاصطناعي</h2>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {nodes.map((item, index) => (
-                                        <div key={index} className="card p-4 hover:scale-105 transform transition duration-300">
-                                            <h3 className="text-xl font-semibold">{item.title}</h3>
-                                            <p className="text-gray-500">{item.date}</p>
-                                            <p className="mt-2">{item.content}</p>
-                                        </div>
-                                    ))}
+                        </section>
+
+                        {/* Experience Section */}
+                        <section className={`${activeSection === 'experience' ? 'block' : 'hidden'}`}>
+                            <div className="space-y-6">
+                                <div className="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 className="text-2xl font-bold mb-4">Experience</h2>
+                                    <div className="border-l-4 border-blue-600 pl-4 mb-6">
+                                        <h3 className="text-xl font-semibold">Teaching and Research Assistant</h3>
+                                        <p className="text-gray-600">Al Hussein Technical University (HTU)</p>
+                                        <p className="text-gray-500">Mar 2023 - Present</p>
+                                    </div>
+                                    <div className="border-l-4 border-blue-600 pl-4">
+                                        <h3 className="text-xl font-semibold">Teacher Assistant</h3>
+                                        <p className="text-gray-600">Jordan University of Science and Technology (JUST)</p>
+                                        <p className="text-gray-500">Sep 2021 - Jan 2023</p>
+                                    </div>
                                 </div>
                             </div>
-                        )}
+                        </section>
+
+                        {/* Other Sections (Education, Skills, etc.) */}
+
                     </main>
+
+                    {/* Footer */}
+                    <footer className="bg-gray-800 text-white py-4">
+                        <div className="max-w-4xl mx-auto text-center">
+                            <p>&copy; 2024 Qusai Ismail. All rights reserved.</p>
+                        </div>
+                    </footer>
                 </div>
             );
-        };
+        }
 
-        ReactDOM.render(<Portfolio />, document.getElementById("root"));
+        // Render the Portfolio component
+        ReactDOM.render(<Portfolio />, document.getElementById('root'));
     </script>
 </body>
 </html>
