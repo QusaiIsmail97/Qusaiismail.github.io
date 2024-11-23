@@ -9,29 +9,77 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
 
-        .profile-image {
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
         }
 
-        .profile-image:hover {
+        header {
+            background: linear-gradient(145deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 40% 50px;
+            border-bottom-right-radius: 40% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+        }
+
+        header .social-links a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        header .social-links a:hover {
+            color: #ffcc00;
+        }
+
+        .nav-button {
+            background-color: #2a5298;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #1e3c72;
             transform: scale(1.05);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .news-tag {
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
-        .news-tag:hover {
-            transform: translateY(-2px);
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .social-icon {
@@ -40,23 +88,6 @@
 
         .social-icon:hover {
             transform: translateY(-3px) scale(1.1);
-        }
-
-        .nav-button {
-            transition: all 0.2s ease;
-        }
-
-        .nav-button:hover {
-            transform: translateY(-1px);
-        }
-
-        .content-card {
-            transition: all 0.3s ease;
-        }
-
-        .content-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         /* Custom scrollbar */
@@ -77,13 +108,23 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        /* Animation styles */
+        .news-tag {
+            transition: all 0.3s ease;
+        }
+
+        .news-tag:hover {
+            transform: translateY(-2px);
+            background-color: #e0f7fa;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
-<script type="text/babel">
+    <script type="text/babel">
         const { useState, useEffect } = React;
-        
+
         // Custom Icons Components
         const GSIcon = () => (
             <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
@@ -96,28 +137,17 @@
                 <path d="M19.586 0c-2.118 0-3.832 1.714-3.832 3.832 0 2.118 1.714 3.832 3.832 3.832 2.118 0 3.832-1.714 3.832-3.832 0-2.118-1.714-3.832-3.832-3.832zM0 19.682h3.875v-14.103h-3.875v14.103zm19.586-7.371c-1.365 0-2.472 1.107-2.472 2.472s1.107 2.472 2.472 2.472 2.472-1.107 2.472-2.472-1.107-2.472-2.472-2.472z"/>
             </svg>
         );
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { Book, Briefcase, Code, FileText, GraduationCap, User, Newspaper } = {
-            Book: () => <span>📚</span>,
-            Briefcase: () => <span>💼</span>,
-            Code: () => <span>💻</span>,
-            FileText: () => <span>📄</span>,
-            GraduationCap: () => <span>🎓</span>,
-            User: () => <span>👤</span>,
-            Newspaper: () => <span>📰</span>,
-        };
 
-        function Portfolio() {
+        const Portfolio = () => {
             const [activeSection, setActiveSection] = useState('about');
             const sections = [
-                { id: 'about', icon: User, label: 'About' },
-                { id: 'experience', icon: Briefcase, label: 'Experience' },
-                { id: 'education', icon: GraduationCap, label: 'Education' },
-                { id: 'skills', icon: Code, label: 'Skills' },
-                { id: 'publications', icon: Book, label: 'Publications' },
-                { id: 'projects', icon: FileText, label: 'Projects' },
-                { id: 'news', icon: Newspaper, label: 'AI News' }
+                { id: 'about', icon: () => <span>👤</span>, label: 'About' },
+                { id: 'experience', icon: () => <span>💼</span>, label: 'Experience' },
+                { id: 'education', icon: () => <span>🎓</span>, label: 'Education' },
+                { id: 'skills', icon: () => <span>💻</span>, label: 'Skills' },
+                { id: 'publications', icon: () => <span>📚</span>, label: 'Publications' },
+                { id: 'projects', icon: () => <span>📄</span>, label: 'Projects' },
+                { id: 'news', icon: () => <span>📰</span>, label: 'AI News' }
             ];
 
             // Animation nodes state
@@ -127,295 +157,68 @@
                 {
                     title: "Breakthrough in Large Language Models",
                     date: "March 2024",
-                    content: "Recent advancements in LLMs have shown remarkable improvements in reasoning capabilities and reduced hallucinations, potentially revolutionizing human-AI interaction. Research teams have demonstrated new architectures that significantly improve context understanding and factual accuracy.",
-                    tags: ["LLM", "AI Research", "NLP"],
-                    link: "#"
+                    content: "Recent advancements in LLMs have shown remarkable improvements in reasoning capabilities and reduced hallucinations, potentially revolutionizing industries."
                 },
                 {
-                    title: "AI in Healthcare Diagnostics",
-                    date: "February 2024",
-                    content: "New AI models have achieved unprecedented accuracy in early disease detection, particularly in analyzing medical imaging data for cancer diagnosis. These systems are now being implemented in several major hospitals worldwide for clinical trials.",
-                    tags: ["Healthcare", "ML", "Computer Vision"],
-                    link: "#"
-                },
-                {
-                    title: "Developments in Ethical AI",
-                    date: "January 2024",
-                    content: "Leading AI research institutions have established new frameworks for ensuring responsible AI development, focusing on transparency and bias mitigation. These guidelines are being adopted by major tech companies and research labs globally.",
-                    tags: ["Ethics", "AI Safety", "Policy"],
-                    link: "#"
-                },
-                {
-                    title: "Advances in Multi-Modal AI Systems",
-                    date: "December 2023",
-                    content: "Researchers have developed new architectures that can seamlessly process and understand multiple types of input data - text, images, and audio - simultaneously, opening new possibilities for AI applications.",
-                    tags: ["Multi-Modal", "Deep Learning", "Innovation"],
-                    link: "#"
+                    title: "AI in Healthcare: Revolutionizing Diagnostics",
+                    date: "April 2024",
+                    content: "AI is transforming diagnostics with enhanced image recognition and predictive analytics, leading to faster and more accurate treatments."
                 }
             ];
 
             useEffect(() => {
-                // Create initial nodes
-                const initialNodes = Array.from({ length: 50 }, () => ({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * 300,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: (Math.random() - 0.5) * 2,
-                    size: Math.random() * 4 + 2
-                }));
-                setNodes(initialNodes);
-
-                // Animation frame
-                let animationFrameId;
-                const animate = () => {
-                    setNodes(prevNodes => prevNodes.map(node => ({
-                        ...node,
-                        x: node.x + node.vx,
-                        y: node.y + node.vy,
-                        vx: (node.x <= 0 || node.x >= window.innerWidth) ? -node.vx : node.vx,
-                        vy: (node.y <= 0 || node.y >= 300) ? -node.vy : node.vy
-                    })));
-                    animationFrameId = requestAnimationFrame(animate);
-                };
-                animate();
-
-                return () => {
-                    cancelAnimationFrame(animationFrameId);
-                };
+                // Mimicking fetching data (or you could fetch dynamically)
+                setNodes(newsItems);
             }, []);
 
             return (
-                <div className="min-h-screen bg-gray-50">
-                    {/* Header with AI Animation */}
-                    <header className="relative bg-gradient-to-br from-blue-900 to-purple-900 text-white py-16 px-4 overflow-hidden">
-                        {/* Animated nodes */}
-                        <svg className="absolute inset-0 w-full h-full">
-                            {nodes.map((node, i) => (
-                                <g key={i}>
-                                    <circle
-                                        cx={node.x}
-                                        cy={node.y}
-                                        r={node.size}
-                                        className="fill-blue-300/30"
-                                    />
-                                    {nodes.map((otherNode, j) => {
-                                        const distance = Math.hypot(node.x - otherNode.x, node.y - otherNode.y);
-                                        if (distance < 100 && i < j) {
-                                            return (
-                                                <line
-                                                    key={`${i}-${j}`}
-                                                    x1={node.x}
-                                                    y1={node.y}
-                                                    x2={otherNode.x}
-                                                    y2={otherNode.y}
-                                                    className="stroke-blue-300/20"
-                                                    strokeWidth="1"
-                                                />
-                                            );
-                                        }
-                                        return null;
-                                    })}
-                                </g>
-                            ))}
-                        </svg>
-                        
-                        {/* Content */}
-                        <div className="relative max-w-4xl mx-auto text-center">
-                            <h1 className="text-4xl font-bold mb-4">Qusai Ismail</h1>
-                            <p className="text-xl mb-6">Computer Science Researcher & AI Specialist</p>
-                            <div className="flex flex-wrap justify-center gap-4 mb-8">
-                                <a href="mailto:qusaibanyismail@gmail.com" className="hover:text-blue-200 transition">
-                                    qusaibanyismail@gmail.com
-                                </a>
-                                <span>|</span>
-                                <a href="tel:0770131516" className="hover:text-blue-200 transition">
-                                    0770131516
-                                </a>
-                                <span>|</span>
-                                <a href="https://linkedin.com/in/qusai-ismail-465b44116" className="hover:text-blue-200 transition">
-                                    LinkedIn
-                                </a>
-                            </div>
-                            <div className="flex justify-center gap-6">
-                                <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer"
-                                   className="p-3 bg-white text-blue-900 rounded-lg hover:-translate-y-1 transition">
-                                    GS
-                                </a>
-                                <a href="https://www.researchgate.net" target="_blank" rel="noopener noreferrer"
-                                   className="p-3 bg-teal-500 text-white rounded-full hover:-translate-y-1 transition">
-                                    RG
-                                </a>
-                            </div>
+                <div className="bg-gray-100 min-h-screen">
+                    <header className="p-8 text-center">
+                        <h1 className="text-5xl font-bold">محفظتي</h1>
+                        <p className="text-xl">أهلاً بك في محفظتي الشخصية</p>
+                        <div className="mt-4">
+                            <button className="nav-button">
+                                <GSIcon />  &nbsp; GitHub
+                            </button>
+                            <button className="nav-button">
+                                <RGIcon />  &nbsp; LinkedIn
+                            </button>
                         </div>
                     </header>
 
-                    {/* Navigation */}
-                    <nav className="sticky top-0 bg-white shadow-sm z-50">
-                        <div className="max-w-4xl mx-auto px-4">
-                            <div className="flex overflow-x-auto py-4 gap-2">
-                                {sections.map(({ id, icon: Icon, label }) => (
-                                    <button
-                                        key={id}
-                                        onClick={() => setActiveSection(id)}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                                            activeSection === id 
-                                                ? 'bg-blue-600 text-white' 
-                                                : 'hover:bg-gray-100'
-                                        }`}
-                                    >
-                                        <Icon size={20} />
-                                        {label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+                    <nav className="flex justify-center space-x-6 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-lg">
+                        {sections.map((section) => (
+                            <button
+                                key={section.id}
+                                className={`p-3 hover:bg-indigo-700 rounded-xl transition-transform transform ${activeSection === section.id ? 'bg-indigo-800' : ''}`}
+                                onClick={() => setActiveSection(section.id)}
+                            >
+                                {section.icon()} {section.label}
+                            </button>
+                        ))}
                     </nav>
 
-                    {/* Main Content */}
-                    <main className="max-w-4xl mx-auto px-4 py-8">
-                        {/* About Section */}
-                        <section className={`${activeSection === 'about' ? 'block' : 'hidden'}`}>
-                            <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">About Me</h2>
-                                <p className="text-gray-600 leading-relaxed">
-                                    Qusai Ismail is pursuing his M.Sc. in computer science at the Jordan University of Science and Technology. 
-                                    He received his B.Sc. Degree in Computer Science from Yarmouk University in 2019 with honors. His research 
-                                    interests include Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Pattern Recognition, 
-                                    Model Interpretation, and Natural Language Processing.
-                                </p>
-                                <p className="text-gray-600 leading-relaxed mt-4">
-                                    He is also a researcher in the field of natural language processing (NLP) and computational linguistics, 
-                                    known for his work in lexical complexity prediction. He co-authored a paper for the SemEval-2021 competition, 
-                                    specifically working on Task 1, which involved predicting lexical complexity.
-                                </p>
-                            </div>
-                        </section>
-
-                        {/* Experience Section */}
-                        <section className={`${activeSection === 'experience' ? 'block' : 'hidden'}`}>
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-lg shadow p-6">
-                                    <h2 className="text-2xl font-bold mb-4">Experience</h2>
-                                    <div className="border-l-4 border-blue-600 pl-4 mb-6">
-                                        <h3 className="text-xl font-semibold">Teaching and Research Assistant</h3>
-                                        <p className="text-gray-600">Al Hussein Technical University (HTU)</p>
-                                        <p className="text-gray-500">Mar 2023 - Present</p>
-                                    </div>
-                                    <div className="border-l-4 border-blue-600 pl-4">
-                                        <h3 className="text-xl font-semibold">Teacher Assistant</h3>
-                                        <p className="text-gray-600">Jordan University of Science and Technology (JUST)</p>
-                                        <p className="text-gray-500">Sep 2021 - Jan 2023</p>
-                                    </div>
+                    <main className="max-w-7xl mx-auto p-6">
+                        {activeSection === 'news' && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-center mb-6">آخر الأخبار في الذكاء الاصطناعي</h2>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    {nodes.map((item, index) => (
+                                        <div key={index} className="card p-4 hover:scale-105 transform transition duration-300">
+                                            <h3 className="text-xl font-semibold">{item.title}</h3>
+                                            <p className="text-gray-500">{item.date}</p>
+                                            <p className="mt-2">{item.content}</p>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        </section>
-
-                        {/* Education Section */}
-                        <section className={`${activeSection === 'education' ? 'block' : 'hidden'}`}>
-                            <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">Education</h2>
-                                <div className="space-y-4">
-                                    <div className="border-l-4 border-blue-600 pl-4">
-                                        <h3 className="text-xl font-semibold">Master's Degree in Computer Science</h3>
-                                        <p className="text-gray-600">Jordan University of Science and Technology</p>
-                                        <p className="text-gray-500">2021 - Present</p>
-                                    </div>
-                                    <div className="border-l-4 border-blue-600 pl-4">
-                                        <h3 className="text-xl font-semibold">Bachelor's Degree in Computer Science</h3>
-                                        <p className="text-gray-600">Yarmouk University</p>
-                                        <p className="text-gray-500">2015 - 2019</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Skills Section */}
-                        <section className={`${activeSection === 'skills' ? 'block' : 'hidden'}`}>
-                            <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">Skills</h2>
-                                <ul className="list-disc list-inside text-gray-600">
-                                    <li>Machine Learning & Deep Learning</li>
-                                    <li>Computer Vision</li>
-                                    <li>Natural Language Processing</li>
-                                    <li>Data Analysis & Visualization</li>
-                                    <li>Programming Languages: Python, JavaScript, C++</li>
-                                    <li>Frameworks: TensorFlow, PyTorch, Scikit-Learn</li>
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* Publications Section */}
-                        <section className={`${activeSection === 'publications' ? 'block' : 'hidden'}`}>
-                            <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">Publications</h2>
-                                <ul className="list-disc list-inside text-gray-600">
-                                    <li>
-                                        Qusai Ismail, "Lexical Complexity Prediction," in the proceedings of <em>SemEval-2021</em>.
-                                    </li>
-                                    <li>
-                                        Qusai Ismail, "Exploring Neural Networks for NLP," <em>Journal of AI Research</em>, 2020.
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* Projects Section */}
-                        <section className={`${activeSection === 'projects' ? 'block' : 'hidden'}`}>
-                            <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">Projects</h2>
-                                <ul className="list-disc list-inside text-gray-600">
-                                    <li>Sentiment Analysis Tool - Developed a sentiment analysis tool using Python and NLTK.</li>
-                                    <li>Image Classification - Created a deep learning model to classify images using TensorFlow.</li>
-                                    <li>Chatbot - Built a chatbot application utilizing NLP techniques for user interaction.</li>
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* News Section */}
-                        <section className={`${activeSection === 'news' ? 'block' : 'hidden'}`}>
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-lg shadow p-6">
-                                    <h2 className="text-2xl font-bold mb-6">Latest in AI Research & Development</h2>
-                                    <div className="space-y-8">
-                                        {newsItems.map((item, index) => (
-                                            <div key={index} className="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <h3 className="text-xl font-semibold text-blue-900">{item.title}</h3>
-                                                    <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                                                        {item.date}
-                                                    </span>
-                                                </div>
-                                                <p className="text-gray-600 mb-3">{item.content}</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {item.tags.map((tag, tagIndex) => (
-                                                        <span
-                                                            key={tagIndex}
-                                                            className="news-tag text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full hover:bg-blue-200"
-                                                        >
-                                                            #{tag}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        )}
                     </main>
-
-                    {/* Footer */}
-                    <footer className="bg-gray-800 text-white py-4">
-                        <div className="max-w-4xl mx-auto text-center">
-                            <p>&copy; 2024 Qusai Ismail. All rights reserved.</p>
-                        </div>
-                    </footer>
                 </div>
             );
-        }
+        };
 
-        // Render the Portfolio component
-        ReactDOM.render(<Portfolio />, document.getElementById('root'));
+        ReactDOM.render(<Portfolio />, document.getElementById("root"));
     </script>
 </body>
 </html>
