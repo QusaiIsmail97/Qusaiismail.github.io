@@ -147,27 +147,16 @@
                 { id: 'skills', icon: () => <span>💻</span>, label: 'Skills' },
                 { id: 'publications', icon: () => <span>📚</span>, label: 'Publications' },
                 { id: 'projects', icon: () => <span>📄</span>, label: 'Projects' },
-                { id: 'news', icon: () => <span>📰</span>, label: 'AI News' }
+                { id: 'news', icon: () => <span>📰</span>, label: 'News' },
             ];
 
-            // Animation nodes state
             const [nodes, setNodes] = useState([]);
-
             const newsItems = [
-                {
-                    title: "Breakthrough in Large Language Models",
-                    date: "March 2024",
-                    content: "Recent advancements in LLMs have shown remarkable improvements in reasoning capabilities and reduced hallucinations, potentially revolutionizing industries."
-                },
-                {
-                    title: "AI in Healthcare: Revolutionizing Diagnostics",
-                    date: "April 2024",
-                    content: "AI is transforming diagnostics with enhanced image recognition and predictive analytics, leading to faster and more accurate treatments."
-                }
+                { title: "AI Breakthrough in Natural Language Processing", date: "March 2024", content: "New advancements in NLP are opening doors to better human-computer communication." },
+                { title: "AI in Healthcare: Revolutionizing Diagnostics", date: "April 2024", content: "AI is transforming diagnostics with enhanced image recognition and predictive analytics, leading to faster and more accurate treatments." }
             ];
 
             useEffect(() => {
-                // Mimicking fetching data (or you could fetch dynamically)
                 setNodes(newsItems);
             }, []);
 
@@ -176,13 +165,16 @@
                     <header className="p-8 text-center">
                         <h1 className="text-5xl font-bold">محفظتي</h1>
                         <p className="text-xl">أهلاً بك في محفظتي الشخصية</p>
-                        <div className="mt-4">
-                            <button className="nav-button">
-                                <GSIcon />  &nbsp; GitHub
-                            </button>
-                            <button className="nav-button">
-                                <RGIcon />  &nbsp; LinkedIn
-                            </button>
+                        <div className="mt-4 social-links">
+                            <a href="https://github.com" target="_blank" className="social-icon">
+                                <GSIcon />  GitHub
+                            </a>
+                            <a href="https://www.linkedin.com" target="_blank" className="social-icon">
+                                <RGIcon />  LinkedIn
+                            </a>
+                            <a href="https://scholar.google.com" target="_blank" className="social-icon">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Google_Scholar_logo.svg" alt="Google Scholar" className="w-6 h-6 inline-block" /> Google Scholar
+                            </a>
                         </div>
                     </header>
 
@@ -199,6 +191,12 @@
                     </nav>
 
                     <main className="max-w-7xl mx-auto p-6">
+                        {activeSection === 'about' && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-center mb-6">عنّي</h2>
+                                <p className="text-lg">أنا مطور ويب متمرس مع شغف كبير في مجالات الذكاء الاصطناعي وتحليل البيانات. أتمتع بخبرة واسعة في تطوير الأنظمة المعقدة وتحسين الأداء باستخدام تقنيات متقدمة.</p>
+                            </div>
+                        )}
                         {activeSection === 'news' && (
                             <div>
                                 <h2 className="text-2xl font-bold text-center mb-6">آخر الأخبار في الذكاء الاصطناعي</h2>
