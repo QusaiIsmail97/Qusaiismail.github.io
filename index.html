@@ -9,8 +9,13 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Optional: You can add custom styles here */
-        
+        /* Optional: Add custom styles here */
+        .news-tag {
+            transition: all 0.3s ease;
+        }
+        .news-tag:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -18,14 +23,14 @@
 
     <script type="text/babel">
         const { useState, useEffect } = React;
-        const { Book, Briefcase, Code, FileText, GraduationCap, User,ai } = {
+        const { Book, Briefcase, Code, FileText, GraduationCap, User, Newspaper } = {
             Book: () => <span>📚</span>,
             Briefcase: () => <span>💼</span>,
             Code: () => <span>💻</span>,
             FileText: () => <span>📄</span>,
             GraduationCap: () => <span>🎓</span>,
             User: () => <span>👤</span>,
-            ai: () => <span>👤</span>,
+            Newspaper: () => <span>📰</span>,
         };
 
         function Portfolio() {
@@ -37,17 +42,48 @@
                 { id: 'skills', icon: Code, label: 'Skills' },
                 { id: 'publications', icon: Book, label: 'Publications' },
                 { id: 'projects', icon: FileText, label: 'Projects' },
-                { id: 'news', icon: FileText, label: 'news' }
+                { id: 'news', icon: Newspaper, label: 'AI News' }
             ];
 
             // Animation nodes state
             const [nodes, setNodes] = useState([]);
 
+            const newsItems = [
+                {
+                    title: "Breakthrough in Large Language Models",
+                    date: "March 2024",
+                    content: "Recent advancements in LLMs have shown remarkable improvements in reasoning capabilities and reduced hallucinations, potentially revolutionizing human-AI interaction. Research teams have demonstrated new architectures that significantly improve context understanding and factual accuracy.",
+                    tags: ["LLM", "AI Research", "NLP"],
+                    link: "#"
+                },
+                {
+                    title: "AI in Healthcare Diagnostics",
+                    date: "February 2024",
+                    content: "New AI models have achieved unprecedented accuracy in early disease detection, particularly in analyzing medical imaging data for cancer diagnosis. These systems are now being implemented in several major hospitals worldwide for clinical trials.",
+                    tags: ["Healthcare", "ML", "Computer Vision"],
+                    link: "#"
+                },
+                {
+                    title: "Developments in Ethical AI",
+                    date: "January 2024",
+                    content: "Leading AI research institutions have established new frameworks for ensuring responsible AI development, focusing on transparency and bias mitigation. These guidelines are being adopted by major tech companies and research labs globally.",
+                    tags: ["Ethics", "AI Safety", "Policy"],
+                    link: "#"
+                },
+                {
+                    title: "Advances in Multi-Modal AI Systems",
+                    date: "December 2023",
+                    content: "Researchers have developed new architectures that can seamlessly process and understand multiple types of input data - text, images, and audio - simultaneously, opening new possibilities for AI applications.",
+                    tags: ["Multi-Modal", "Deep Learning", "Innovation"],
+                    link: "#"
+                }
+            ];
+
             useEffect(() => {
                 // Create initial nodes
                 const initialNodes = Array.from({ length: 50 }, () => ({
                     x: Math.random() * window.innerWidth,
-                    y: Math.random() * 300, // Header height
+                    y: Math.random() * 300,
                     vx: (Math.random() - 0.5) * 2,
                     vy: (Math.random() - 0.5) * 2,
                     size: Math.random() * 4 + 2
@@ -199,11 +235,6 @@
                             </div>
                         </section>
 
-                        <section className={`${activeSection === 'news' ? 'block' : 'hidden'}`}>
-                            
-                        </section>
-
-
                         {/* Education Section */}
                         <section className={`${activeSection === 'education' ? 'block' : 'hidden'}`}>
                             <div className="bg-white rounded-lg shadow p-6">
@@ -256,12 +287,44 @@
                         {/* Projects Section */}
                         <section className={`${activeSection === 'projects' ? 'block' : 'hidden'}`}>
                             <div className="bg-white rounded-lg shadow p-6">
-                                <h2 className="text-2xl font-bold mb-4">Projects</h2>
+                                <h2 className="text-2xl font-bold mb-4">Projects<h2 className="text-2xl font-bold mb-4">Projects</h2>
                                 <ul className="list-disc list-inside text-gray-600">
                                     <li>Sentiment Analysis Tool - Developed a sentiment analysis tool using Python and NLTK.</li>
                                     <li>Image Classification - Created a deep learning model to classify images using TensorFlow.</li>
                                     <li>Chatbot - Built a chatbot application utilizing NLP techniques for user interaction.</li>
                                 </ul>
+                            </div>
+                        </section>
+
+                        {/* News Section */}
+                        <section className={`${activeSection === 'news' ? 'block' : 'hidden'}`}>
+                            <div className="space-y-6">
+                                <div className="bg-white rounded-lg shadow p-6">
+                                    <h2 className="text-2xl font-bold mb-6">Latest in AI Research & Development</h2>
+                                    <div className="space-y-8">
+                                        {newsItems.map((item, index) => (
+                                            <div key={index} className="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <h3 className="text-xl font-semibold text-blue-900">{item.title}</h3>
+                                                    <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                                        {item.date}
+                                                    </span>
+                                                </div>
+                                                <p className="text-gray-600 mb-3">{item.content}</p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {item.tags.map((tag, tagIndex) => (
+                                                        <span
+                                                            key={tagIndex}
+                                                            className="news-tag text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full hover:bg-blue-200"
+                                                        >
+                                                            #{tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </main>
