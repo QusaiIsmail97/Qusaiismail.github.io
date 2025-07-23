@@ -4,44 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qusai Ismail - Portfolio</title>
-    <script src="https://unpkg.com/react/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Optional: You can add custom styles here */
+        /* Ensure sufficient contrast for accessibility */
+        .gradient-header {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #7e22ce);
+        }
+        /* Smooth scroll for navigation */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { Book, Briefcase, Code, FileText, GraduationCap, User, ai } = {
-            Book: () => <span>📚</span>,
-            Briefcase: () => <span>💼</span>,
-            Code: () => <span>💻</span>,
-            FileText: () => <span>📄</span>,
-            GraduationCap: () => <span>🎓</span>,
-            User: () => <span>👤</span>,
-            ai: () => <span>🤖</span>,  // AI Icon
+        const { useState, useEffect, useMemo } = React;
+        const { createRoot } = ReactDOM;
+
+        // Icon components with size prop support
+        const Icons = {
+            Book: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>📚</span>,
+            Briefcase: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>💼</span>,
+            Code: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>💻</span>,
+            FileText: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>📄</span>,
+            GraduationCap: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>🎓</span>,
+            User: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>👤</span>,
+            ai: ({ size = 20 }) => <span style={{ fontSize: `${size}px` }}>🤖</span>,
         };
 
         function Portfolio() {
             const [activeSection, setActiveSection] = useState('about');
             const [newsArticles, setNewsArticles] = useState([]);
-            
-            const sections = [
-                { id: 'about', icon: User, label: 'About' },
-                { id: 'experience', icon: Briefcase, label: 'Experience' },
-                { id: 'education', icon: GraduationCap, label: 'Education' },
-                { id: 'skills', icon: Code, label: 'Skills' },
-                { id: 'publications', icon: Book, label: 'Publications' },
-                { id: 'projects', icon: FileText, label: 'Projects' },
-                { id: 'news', icon: ai, label: 'AI News' }
-            ];
+            const [error, setError] = useState(null);
 
-            // Static AI News (you can replace this with dynamic fetching)
+            // Memoize sections to prevent re-renders
+            const sections = useMemo(() => [
+                { id: 'about', icon: Icons.User, label: 'About' },
+                { id: 'experience', icon: Icons.Briefcase, label: 'Experience' },
+                { id: 'education', icon: Icons.GraduationCap, label: 'Education' },
+                { id: 'skills', icon: Icons.Code, label: 'Skills' },
+                { id: 'publications', icon: Icons.Book, label: 'Publications' },
+                { id: 'projects', icon: Icons.FileText, label: 'Projects' },
+                { id: 'news', icon: Icons.ai, label: 'AI News' }
+            ], []);
+
+            // Static news data
             const staticNews = [
                 { title: 'AI Research Breakthroughs', description: 'New AI algorithms are allowing robots to learn complex tasks faster and more accurately.' },
                 { title: 'Ethics in AI', description: 'The debate over AI ethics continues to grow, with calls for more transparency and regulation.' },
@@ -49,36 +61,74 @@
             ];
 
             useEffect(() => {
-                // Simulating an API call to fetch AI news
+                // Simulate API call with static data
                 setNewsArticles(staticNews);
 
-                // Example of how to dynamically fetch AI news (optional)
-                // const fetchNews = async () => {
-                //     const response = await fetch('https://newsapi.org/v2/everything?q=AI&apiKey=YOUR_API_KEY');
-                //     const data = await response.json();
-                //     setNewsArticles(data.articles);
-                // };
-                // fetchNews();
+                // Optional: Dynamic news fetching with error handling
+                /*
+                const fetchNews = async () => {
+                    try {
+                        const response = await fetch('https://newsapi.org/v2/everything?q=AI&apiKey=YOUR_API_KEY');
+                        if (!response.ok) throw new Error('Failed to fetch news');
+                        const data = await response.json();
+                        setNewsArticles(data.articles.slice(0, 3)); // Limit to 3 articles
+                    } catch (err) {
+                        setError('Failed to load AI news. Showing static content instead.');
+                        setNewsArticles(staticNews);
+                    }
+                };
+                fetchNews();
+                */
+            }, []);
 
-            }, []);  // Empty dependency array to run only once on mount
+            // Example Firebase integration (commented out)
+            /*
+            useEffect(() => {
+                import('https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js').then(firebase => {
+                    import('https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js').then(auth => {
+                        import('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js').then(firestore => {
+                            const app = firebase.initializeApp({
+                                apiKey: "YOUR_API_KEY",
+                                authDomain: "YOUR_AUTH_DOMAIN",
+                                projectId: "YOUR_PROJECT_ID",
+                                storageBucket: "YOUR_STORAGE_BUCKET",
+                                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+                                appId: "YOUR_APP_ID"
+                            });
+                            const authInstance = auth.getAuth();
+                            const db = firestore.getFirestore();
+                            authInstance.onAuthStateChanged(async user => {
+                                if (user) {
+                                    const userDoc = await firestore.getDoc(firestore.doc(db, 'users', user.uid));
+                                    if (userDoc.exists()) {
+                                        const data = userDoc.data();
+                                        // Update state with user data, e.g., setNewsArticles(data.news || staticNews);
+                                    }
+                                }
+                            });
+                        });
+                    });
+                });
+            }, []);
+            */
 
             return (
                 <div className="min-h-screen bg-gray-50">
-                    {/* Header with AI Animation */}
-                    <header className="relative bg-gradient-to-br from-blue-900 to-purple-900 text-white py-16 px-4 overflow-hidden">
+                    {/* Header */}
+                    <header className="relative gradient-header text-white py-16 px-4 overflow-hidden">
                         <div className="relative max-w-4xl mx-auto text-center">
                             <h1 className="text-4xl font-bold mb-4">Qusai Ismail</h1>
                             <p className="text-xl mb-6">Computer Science Researcher & AI Specialist</p>
                             <div className="flex flex-wrap justify-center gap-4 mb-8">
-                                <a href="mailto:qusaibanyismail@gmail.com" className="hover:text-blue-200 transition">
+                                <a href="mailto:qusaibanyismail@gmail.com" className="hover:text-blue-200 transition" rel="noopener">
                                     qusaibanyismail@gmail.com
                                 </a>
                                 <span>|</span>
-                                <a href="tel:0770131516" className="hover:text-blue-200 transition">
+                                <a href="tel:0770131516" className="hover:text-blue-200 transition" rel="noopener">
                                     0770131516
                                 </a>
                                 <span>|</span>
-                                <a href="https://linkedin.com/in/qusai-ismail-465b44116" className="hover:text-blue-200 transition">
+                                <a href="https://linkedin.com/in/qusai-ismail-465b44116" className="hover:text-blue-200 transition" rel="noopener noreferrer" target="_blank">
                                     LinkedIn
                                 </a>
                             </div>
@@ -88,7 +138,7 @@
                     {/* Navigation */}
                     <nav className="sticky top-0 bg-white shadow-sm z-50">
                         <div className="max-w-4xl mx-auto px-4">
-                            <div className="flex overflow-x-auto py-4 gap-2">
+                            <div className="flex flex-wrap justify-center py-4 gap-2">
                                 {sections.map(({ id, icon: Icon, label }) => (
                                     <button
                                         key={id}
@@ -98,6 +148,8 @@
                                                 ? 'bg-blue-600 text-white'
                                                 : 'hover:bg-gray-100'
                                         }`}
+                                        aria-current={activeSection === id ? 'page' : undefined}
+                                        aria-label={`View ${label} section`}
                                     >
                                         <Icon size={20} />
                                         {label}
@@ -109,6 +161,8 @@
 
                     {/* Main Content */}
                     <main className="max-w-4xl mx-auto px-4 py-8">
+                        {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{error}</div>}
+
                         {/* About Section */}
                         <section className={`${activeSection === 'about' ? 'block' : 'hidden'}`}>
                             <div className="bg-white rounded-lg shadow p-6">
@@ -220,7 +274,9 @@
             );
         }
 
-        ReactDOM.render(<Portfolio />, document.getElementById('root'));
+        // Modern React 18 rendering
+        const root = createRoot(document.getElementById('root'));
+        root.render(<Portfolio />);
     </script>
 </body>
 </html>
