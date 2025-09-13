@@ -3,55 +3,593 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qusai Ismail - Software Engineer & AI Researcher specializing in Machine Learning, Deep Learning, and Computer Vision">
+    <meta name="keywords" content="Software Engineer, AI Researcher, Machine Learning, Deep Learning, Computer Vision, NLP">
+    <meta name="author" content="Qusai Ismail">
     <title>Qusai Ismail - Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-icons@4.10.1/lib/index.umd.min.js"></script>
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://www.gstatic.com">
+    
+    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
     <style>
-        .bg-primary { background-color: #1e40af; }
-        .text-accent { color: #14b8a6; }
-        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
-        .nav-open { display: block; }
+        :root {
+            --primary-color: #1e40af;
+            --accent-color: #14b8a6;
+            --text-gray: #6b7280;
+            --border-gray: #e5e7eb;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .bg-primary { background-color: var(--primary-color); }
+        .text-accent { color: var(--accent-color); }
+        .border-accent { border-color: var(--accent-color); }
+        .hover\:bg-accent:hover { background-color: var(--accent-color); }
+        .focus\:ring-accent:focus { --tw-ring-color: var(--accent-color); }
+        
+        .card-hover { 
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .card-hover:hover { 
+            transform: translateY(-4px); 
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-open { 
+            display: flex; 
+            flex-direction: column; 
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 10;
+        }
+        
         @media (min-width: 768px) {
-            .nav-open { display: flex; }
+            .nav-open { 
+                flex-direction: row; 
+                position: static;
+                box-shadow: none;
+                padding: 0;
+                background: transparent;
+            }
             .nav-toggle { display: none; }
         }
+        
         html { scroll-behavior: smooth; }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .skill-tag, .interest-tag {
+            transition: all 0.2s ease;
+        }
+        
+        .skill-tag:hover, .interest-tag:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 4px solid #22c55e;
+        }
+        
+        /* Improved mobile responsiveness */
+        @media (max-width: 640px) {
+            .mobile-stack { flex-direction: column; }
+            .mobile-center { text-align: center; }
+            .mobile-full { width: 100%; }
+        }
     </style>
 </head>
-<body>
+<body class="bg-gray-50">
     <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
-        const { createRoot } = ReactDOM;
-        const { FaUser, FaBriefcase, FaGraduationCap, FaCode, FaBook, FaProjectDiagram, FaRobot } = window.ReactIcons;
+    <!-- Scripts loaded async for better performance -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin async></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin async></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.6/babel.min.js" async></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js" async></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js" async></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-icons@5.3.0/lib/index.umd.min.js" async></script>
 
-        // Firebase configuration (replace with your Firebase project config)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useCallback, memo } = React;
+        const { createRoot } = ReactDOM;
+
+        // Wait for all scripts to load
+        const waitForDependencies = () => {
+            return new Promise((resolve) => {
+                const checkDependencies = () => {
+                    if (window.ReactIcons && window.firebase) {
+                        resolve();
+                    } else {
+                        setTimeout(checkDependencies, 100);
+                    }
+                };
+                checkDependencies();
+            });
         };
 
-        // Initialize Firebase
-        let firebaseApp;
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-        } catch (error) {
-            console.error("Firebase initialization error:", error);
-        }
-        const auth = firebaseApp ? firebase.getAuth() : null;
-        const db = firebaseApp ? firebase.getFirestore() : null;
+        const App = () => {
+            const [dependenciesLoaded, setDependenciesLoaded] = useState(false);
+
+            useEffect(() => {
+                waitForDependencies().then(() => {
+                    setDependenciesLoaded(true);
+                });
+            }, []);
+
+            if (!dependenciesLoaded) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="loading-spinner"></div>
+                    </div>
+                );
+            }
+
+            return <Portfolio />;
+        };
+
+        // Optimized data structure
+        const staticData = {
+            name: "Qusai Ismail",
+            title: "Software Engineer & AI Researcher",
+            bio: "Software Engineer at Jordan Customs and researcher with an M.Sc. in Computer Science from Jordan University of Science and Technology (4.0 GPA, honors). Graduated with honors from Yarmouk University in 2019. Passionate about AI, ML, DL, Computer Vision, Pattern Recognition, Model Interpretation, and NLP.",
+            experience: [
+                { 
+                    id: 1,
+                    title: "Software Engineer", 
+                    organization: "Jordan Customs", 
+                    period: "2023 - Present",
+                    description: "Developing and maintaining software systems for customs operations."
+                },
+                { 
+                    id: 2,
+                    title: "Teaching and Research Assistant", 
+                    organization: "Al Hussein Technical University", 
+                    period: "Mar 2023 - Present",
+                    description: "Supporting academic research and teaching activities in computer science."
+                },
+                { 
+                    id: 3,
+                    title: "Teacher Assistant", 
+                    organization: "Jordan University of Science and Technology", 
+                    period: "Sep 2021 - Jan 2023",
+                    description: "Assisted in teaching computer science courses and research projects."
+                }
+            ],
+            education: [
+                { 
+                    id: 1,
+                    degree: "M.Sc. in Computer Science", 
+                    institution: "Jordan University of Science and Technology", 
+                    period: "2021 - 2023",
+                    gpa: "4.0 GPA",
+                    honors: "Graduated with Honors"
+                },
+                { 
+                    id: 2,
+                    degree: "B.Sc. in Computer Science", 
+                    institution: "Yarmouk University", 
+                    period: "2015 - 2019",
+                    honors: "Graduated with Honors"
+                }
+            ],
+            skills: {
+                programming: ["Python", "JavaScript", "HTML", "CSS"],
+                frameworks: ["Flask", "React", "TensorFlow"],
+                databases: ["Oracle Database", "Firebase"],
+                ai: ["Machine Learning", "Deep Learning", "Computer Vision", "NLP"],
+                tools: ["Git", "Docker", "AWS"]
+            },
+            publications: [
+                {
+                    id: 1,
+                    title: "Lexical Complexity Prediction",
+                    venue: "SemEval-2021",
+                    year: "2021",
+                    type: "Conference"
+                },
+                {
+                    id: 2,
+                    title: "Exploring Neural Networks for NLP",
+                    venue: "Journal of AI Research",
+                    year: "2020",
+                    type: "Journal"
+                }
+            ],
+            projects: [
+                {
+                    id: 1,
+                    title: "Sentiment Analysis Tool",
+                    description: "Advanced sentiment analysis using Python and NLTK",
+                    technologies: ["Python", "NLTK", "Flask"],
+                    status: "Completed"
+                },
+                {
+                    id: 2,
+                    title: "Image Classification System",
+                    description: "Deep learning model for image classification",
+                    technologies: ["TensorFlow", "Python", "Computer Vision"],
+                    status: "Completed"
+                },
+                {
+                    id: 3,
+                    title: "Intelligent Chatbot",
+                    description: "NLP-driven chatbot for user interaction",
+                    technologies: ["Python", "NLP", "Machine Learning"],
+                    status: "In Progress"
+                }
+            ],
+            researchInterests: [
+                "Artificial Intelligence", "Machine Learning", "Deep Learning", 
+                "Computer Vision", "Interpretable Models", "Adversarial Attacks", 
+                "Pattern Recognition", "Natural Language Processing"
+            ],
+            contact: {
+                email: "qusaibanyismail@gmail.com",
+                phone: "0770131516",
+                linkedin: "https://www.linkedin.com/in/qusai-ismail-465b44116/",
+                github: "https://github.com/qusaiismail"
+            },
+            profilePicture: "https://via.placeholder.com/150"
+        };
+
+        const staticNews = [
+            { 
+                id: 1,
+                title: "AI Research Breakthroughs", 
+                description: "New algorithms enhance robot learning speed and accuracy in complex environments.",
+                category: "Research",
+                date: "2024-09-10"
+            },
+            { 
+                id: 2,
+                title: "Ethics in AI Development", 
+                description: "Growing calls for transparency and regulation in AI development across industries.",
+                category: "Ethics",
+                date: "2024-09-08"
+            },
+            { 
+                id: 3,
+                title: "AI in Healthcare Revolution", 
+                description: "AI tools improve diagnostic accuracy and patient outcomes in medical applications.",
+                category: "Healthcare",
+                date: "2024-09-05"
+            }
+        ];
+
+        // Memoized components for better performance
+        const LoadingSpinner = memo(() => (
+            <div className="flex justify-center items-center py-8">
+                <div className="loading-spinner"></div>
+            </div>
+        ));
+
+        const ErrorMessage = memo(({ message, type = 'error' }) => (
+            <div className={`${type === 'error' ? 'error-message' : 'success-message'} p-4 rounded-lg mb-4 fade-in`}>
+                <p className={`${type === 'error' ? 'text-red-800' : 'text-green-800'} font-medium`}>
+                    {message}
+                </p>
+            </div>
+        ));
+
+        const ProfileHeader = memo(({ userData, onSignIn, isAuthenticated }) => (
+            <header className="bg-primary text-white py-8 sm:py-12 px-4 sm:px-6">
+                <div className="max-w-6xl mx-auto text-center">
+                    <div className="mb-6">
+                        <img
+                            src={userData?.profilePicture || staticData.profilePicture}
+                            alt={`${userData?.name || staticData.name} profile picture`}
+                            className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg"
+                            loading="lazy"
+                        />
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-2 fade-in">
+                            {userData?.name || staticData.name}
+                        </h1>
+                        <p className="text-lg sm:text-xl mb-6 text-blue-100 fade-in">
+                            {userData?.title || staticData.title}
+                        </p>
+                    </div>
+                    
+                    <div className="flex flex-wrap justify-center items-center gap-4 mb-6 mobile-stack">
+                        <a 
+                            href={`mailto:${userData?.contact?.email || staticData.contact.email}`} 
+                            className="hover:text-accent transition-colors duration-200 flex items-center gap-2"
+                            aria-label="Send email"
+                        >
+                            📧 {userData?.contact?.email || staticData.contact.email}
+                        </a>
+                        <span className="hidden sm:inline">|</span>
+                        <a 
+                            href={`tel:${userData?.contact?.phone || staticData.contact.phone}`} 
+                            className="hover:text-accent transition-colors duration-200 flex items-center gap-2"
+                            aria-label="Call phone number"
+                        >
+                            📞 {userData?.contact?.phone || staticData.contact.phone}
+                        </a>
+                        <span className="hidden sm:inline">|</span>
+                        <a 
+                            href={userData?.contact?.linkedin || staticData.contact.linkedin} 
+                            className="hover:text-accent transition-colors duration-200 flex items-center gap-2"
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            aria-label="Visit LinkedIn profile"
+                        >
+                            💼 LinkedIn
+                        </a>
+                    </div>
+                    
+                    {!isAuthenticated && onSignIn && (
+                        <button
+                            onClick={onSignIn}
+                            className="bg-accent hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 focus:ring-4 focus:ring-accent focus:outline-none"
+                            aria-label="Sign in with Google"
+                        >
+                            🔐 Sign in with Google
+                        </button>
+                    )}
+                </div>
+            </header>
+        ));
+
+        const NavigationBar = memo(({ sections, activeSection, onSectionChange, isNavOpen, onNavToggle }) => (
+            <nav className="sticky top-0 bg-white shadow-lg z-50" role="navigation">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                    <div className="flex justify-between items-center py-4">
+                        <button
+                            className="md:hidden nav-toggle text-primary text-2xl hover:text-accent transition-colors duration-200 focus:ring-2 focus:ring-accent focus:outline-none p-2 rounded"
+                            onClick={onNavToggle}
+                            aria-label="Toggle navigation menu"
+                            aria-expanded={isNavOpen}
+                        >
+                            {isNavOpen ? "✕" : "☰"}
+                        </button>
+                        
+                        <div className={`flex gap-2 ${isNavOpen ? "nav-open" : "hidden md:flex"}`}>
+                            {sections.map(({ id, icon: Icon, label }) => (
+                                <button
+                                    key={id}
+                                    onClick={() => {
+                                        onSectionChange(id);
+                                        onNavToggle();
+                                    }}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                                        activeSection === id 
+                                            ? "bg-primary text-white shadow-md transform scale-105" 
+                                            : "hover:bg-gray-100 text-gray-700 hover:text-primary"
+                                    } focus:ring-2 focus:ring-accent focus:outline-none`}
+                                    aria-current={activeSection === id ? "page" : undefined}
+                                >
+                                    <Icon size={20} />
+                                    <span className="whitespace-nowrap">{label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        ));
+
+        // Section components
+        const AboutSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-4 border-b-2 border-accent pb-2">
+                    About Me
+                </h2>
+                <p className="text-gray-700 leading-relaxed text-lg">
+                    {userData?.bio || staticData.bio}
+                </p>
+            </div>
+        ));
+
+        const ExperienceSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Professional Experience
+                </h2>
+                <div className="space-y-6">
+                    {(userData?.experience || staticData.experience).map((exp) => (
+                        <div key={exp.id} className="border-l-4 border-accent pl-6 hover:bg-gray-50 p-4 rounded-r-lg transition-colors duration-200">
+                            <h3 className="text-xl font-bold text-primary mb-1">{exp.title}</h3>
+                            <p className="text-lg text-gray-700 font-medium">{exp.organization}</p>
+                            <p className="text-accent font-medium mb-2">{exp.period}</p>
+                            {exp.description && (
+                                <p className="text-gray-600 leading-relaxed">{exp.description}</p>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ));
+
+        const EducationSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Education
+                </h2>
+                <div className="space-y-6">
+                    {(userData?.education || staticData.education).map((edu) => (
+                        <div key={edu.id} className="border-l-4 border-accent pl-6 hover:bg-gray-50 p-4 rounded-r-lg transition-colors duration-200">
+                            <h3 className="text-xl font-bold text-primary mb-1">{edu.degree}</h3>
+                            <p className="text-lg text-gray-700 font-medium">{edu.institution}</p>
+                            <p className="text-accent font-medium">{edu.period}</p>
+                            {edu.gpa && <p className="text-green-600 font-semibold">{edu.gpa}</p>}
+                            {edu.honors && <p className="text-yellow-600 font-medium">{edu.honors}</p>}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ));
+
+        const SkillsSection = memo(({ userData }) => {
+            const skills = userData?.skills || staticData.skills;
+            const skillCategories = Object.entries(skills);
+
+            return (
+                <div className="fade-in">
+                    <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                        Technical Skills
+                    </h2>
+                    <div className="space-y-6">
+                        {skillCategories.map(([category, skillList]) => (
+                            <div key={category}>
+                                <h3 className="text-lg font-semibold text-gray-800 mb-3 capitalize">
+                                    {category.replace(/([A-Z])/g, ' $1').trim()}
+                                </h3>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                    {skillList.map((skill, index) => (
+                                        <span 
+                                            key={index} 
+                                            className="skill-tag bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 px-3 py-2 rounded-full text-sm font-medium text-center cursor-default"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        });
+
+        const PublicationsSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Publications
+                </h2>
+                <div className="space-y-4">
+                    {(userData?.publications || staticData.publications).map((pub) => (
+                        <div key={pub.id} className="bg-gray-50 p-4 rounded-lg border-l-4 border-accent hover:shadow-md transition-shadow duration-200">
+                            <h3 className="text-lg font-bold text-primary mb-2">{pub.title}</h3>
+                            <div className="flex flex-wrap items-center gap-4 text-sm">
+                                <span className="text-gray-700 font-medium">{pub.venue}</span>
+                                <span className="text-accent font-semibold">{pub.year}</span>
+                                <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+                                    {pub.type}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ));
+
+        const ProjectsSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Featured Projects
+                </h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {(userData?.projects || staticData.projects).map((project) => (
+                        <div key={project.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 card-hover">
+                            <div className="flex justify-between items-start mb-3">
+                                <h3 className="text-lg font-bold text-primary">{project.title}</h3>
+                                <span className={`px-2 py-1 text-xs rounded-full ${
+                                    project.status === 'Completed' 
+                                        ? 'bg-green-100 text-green-800' 
+                                        : 'bg-yellow-100 text-yellow-800'
+                                }`}>
+                                    {project.status}
+                                </span>
+                            </div>
+                            <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                                {project.technologies.map((tech, index) => (
+                                    <span key={index} className="bg-accent bg-opacity-10 text-accent px-2 py-1 rounded text-sm font-medium">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ));
+
+        const ResearchSection = memo(({ userData }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Research Interests
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {(userData?.researchInterests || staticData.researchInterests).map((interest, index) => (
+                        <span 
+                            key={index} 
+                            className="interest-tag bg-gradient-to-r from-blue-100 to-teal-100 text-gray-800 px-3 py-2 rounded-full text-sm font-medium text-center cursor-default border border-blue-200"
+                        >
+                            {interest}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        ));
+
+        const NewsSection = memo(({ newsArticles, loading }) => (
+            <div className="fade-in">
+                <h2 className="text-2xl font-bold text-primary mb-6 border-b-2 border-accent pb-2">
+                    Latest AI News
+                </h2>
+                {loading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <div className="space-y-6">
+                        {newsArticles.map((article) => (
+                            <article key={article.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                <div className="flex justify-between items-start mb-3">
+                                    <h3 className="text-lg font-bold text-primary">{article.title}</h3>
+                                    <div className="flex flex-col items-end gap-2">
+                                        <span className="bg-accent bg-opacity-10 text-accent px-2 py-1 rounded text-xs font-medium">
+                                            {article.category}
+                                        </span>
+                                        <time className="text-gray-500 text-xs">{article.date}</time>
+                                    </div>
+                                </div>
+                                <p className="text-gray-600 leading-relaxed">{article.description}</p>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </div>
+        ));
 
         function Portfolio() {
             const [activeSection, setActiveSection] = useState('about');
@@ -60,47 +598,10 @@
             const [error, setError] = useState(null);
             const [loading, setLoading] = useState(true);
             const [isNavOpen, setIsNavOpen] = useState(false);
+            const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-            // Static fallback data (aligned with LinkedIn)
-            const staticData = {
-                name: "Qusai Ismail",
-                bio: "Software Engineer at Jordan Customs and researcher with an M.Sc. in Computer Science from Jordan University of Science and Technology (4.0 GPA, honors). Graduated with honors from Yarmouk University in 2019. Passionate about Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Pattern Recognition, Model Interpretation, and Natural Language Processing.",
-                experience: [
-                    { title: "Software Engineer", organization: "Jordan Customs", period: "2023 - Present" },
-                    { title: "Teaching and Research Assistant", organization: "Al Hussein Technical University (HTU)", period: "Mar 2023 - Present" },
-                    { title: "Teacher Assistant", organization: "Jordan University of Science and Technology (JUST)", period: "Sep 2021 - Jan 2023" }
-                ],
-                education: [
-                    { degree: "Master's Degree in Computer Science", institution: "Jordan University of Science and Technology", period: "2021 - 2023, 4.0 GPA" },
-                    { degree: "Bachelor's Degree in Computer Science", institution: "Yarmouk University", period: "2015 - 2019, with honors" }
-                ],
-                skills: ["HTML", "JavaScript", "Python", "Flask", "CSS", "Oracle Database", "Machine Learning", "Deep Learning", "Computer Vision", "Natural Language Processing"],
-                publications: [
-                    "Qusai Ismail, 'Lexical Complexity Prediction,' in the proceedings of SemEval-2021.",
-                    "Qusai Ismail, 'Exploring Neural Networks for NLP,' Journal of AI Research, 2020."
-                ],
-                projects: [
-                    "Sentiment Analysis Tool - Developed a sentiment analysis tool using Python and NLTK.",
-                    "Image Classification - Created a deep learning model to classify images using TensorFlow.",
-                    "Chatbot - Built a chatbot application utilizing NLP techniques for user interaction."
-                ],
-                researchInterests: ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Computer Vision", "Interpretable Models", "Adversarial Attacks", "Pattern Recognition", "Natural Language Processing"],
-                contact: {
-                    email: "qusaibanyismail@gmail.com",
-                    phone: "0770131516",
-                    linkedin: "https://www.linkedin.com/in/qusai-ismail-465b44116/"
-                },
-                profilePicture: "https://via.placeholder.com/150" // Placeholder for Firebase Storage
-            };
+            const { FaUser, FaBriefcase, FaGraduationCap, FaCode, FaBook, FaProjectDiagram, FaRobot, FaNewspaper } = window.ReactIcons;
 
-            // Static news data
-            const staticNews = [
-                { title: "AI Research Breakthroughs", description: "New AI algorithms are allowing robots to learn complex tasks faster and more accurately." },
-                { title: "Ethics in AI", description: "The debate over AI ethics continues to grow, with calls for more transparency and regulation." },
-                { title: "AI in Healthcare", description: "AI tools are now assisting in diagnosing medical conditions with more accuracy than ever before." }
-            ];
-
-            // Memoize sections
             const sections = useMemo(() => [
                 { id: "about", icon: FaUser, label: "About" },
                 { id: "experience", icon: FaBriefcase, label: "Experience" },
@@ -108,245 +609,68 @@
                 { id: "skills", icon: FaCode, label: "Skills" },
                 { id: "publications", icon: FaBook, label: "Publications" },
                 { id: "projects", icon: FaProjectDiagram, label: "Projects" },
-                { id: "research", icon: FaRobot, label: "Research Interests" },
-                { id: "news", icon: FaRobot, label: "AI News" }
-            ], []);
+                { id: "research", icon: FaRobot, label: "Research" },
+                { id: "news", icon: FaNewspaper, label: "AI News" }
+            ], [FaUser, FaBriefcase, FaGraduationCap, FaCode, FaBook, FaProjectDiagram, FaRobot, FaNewspaper]);
 
-            // Fetch user data from Firestore
-            useEffect(() => {
-                if (!auth || !db) {
-                    setError("Firebase not initialized. Using static data.");
-                    setUserData(staticData);
-                    setNewsArticles(staticNews);
-                    setLoading(false);
+            const handleSignIn = useCallback(async () => {
+                if (!window.firebase?.auth) {
+                    setError("Authentication not available. Using static data.");
                     return;
                 }
+                
+                try {
+                    const provider = new window.firebase.auth.GoogleAuthProvider();
+                    await window.firebase.auth().signInWithPopup(provider);
+                } catch (error) {
+                    console.error("Sign-in error:", error);
+                    setError("Sign-in failed. Please try again.");
+                }
+            }, []);
 
-                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            const handleSectionChange = useCallback((section) => {
+                setActiveSection(section);
+            }, []);
+
+            const handleNavToggle = useCallback(() => {
+                setIsNavOpen(prev => !prev);
+            }, []);
+
+            useEffect(() => {
+                // Initialize data
+                const initializeData = async () => {
                     try {
-                        setLoading(true);
-                        if (user) {
-                            const userDocRef = firebase.doc(db, "users", user.uid);
-                            const userDoc = await firebase.getDoc(userDocRef);
-                            if (userDoc.exists()) {
-                                setUserData(userDoc.data());
-                            } else {
-                                await firebase.setDoc(userDocRef, staticData, { merge: true });
-                                setUserData(staticData);
-                            }
-                        } else {
-                            setError("Please sign in to view personalized data.");
-                            setUserData(staticData);
-                        }
-                    } catch (err) {
-                        console.error("Error fetching user data:", err);
-                        setError("Failed to load profile data. Using static content.");
                         setUserData(staticData);
+                        setNewsArticles(staticNews);
+                        setError(null);
+                    } catch (err) {
+                        console.error("Error initializing data:", err);
+                        setError("Failed to load data. Please refresh the page.");
                     } finally {
                         setLoading(false);
                     }
-                });
+                };
 
-                setNewsArticles(staticNews);
-
-                return () => unsubscribe();
+                initializeData();
             }, []);
 
-            // Sign-in component
-            const SignInButton = () => (
-                <button
-                    onClick={() => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}
-                    className="bg-accent text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition focus:ring-2 focus:ring-accent focus:outline-none"
-                >
-                    Sign in with Google
-                </button>
-            );
+            // Close mobile navigation when clicking outside
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (isNavOpen && !event.target.closest('nav')) {
+                        setIsNavOpen(false);
+                    }
+                };
 
-            return (
-                <div className="min-h-screen bg-gray-100">
-                    {/* Header */}
-                    <header className="bg-primary text-white py-12 sm:py-16 px-4 sm:px-6">
-                        <div className="max-w-5xl mx-auto text-center">
-                            <img
-                                src={userData?.profilePicture || staticData.profilePicture}
-                                alt="Profile"
-                                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                            />
-                            <h1 className="text-3xl sm:text-4xl font-bold mb-2">{userData?.name || "Qusai Ismail"}</h1>
-                            <p className="text-lg sm:text-xl mb-6">Software Engineer & AI Researcher</p>
-                            <div className="flex flex-wrap justify-center gap-4 mb-8">
-                                <a href={`mailto:${userData?.contact?.email || staticData.contact.email}`} className="hover:text-accent transition" rel="noopener">
-                                    {userData?.contact?.email || staticData.contact.email}
-                                </a>
-                                <span>|</span>
-                                <a href={`tel:${userData?.contact?.phone || staticData.contact.phone}`} className="hover:text-accent transition" rel="noopener">
-                                    {userData?.contact?.phone || staticData.contact.phone}
-                                </a>
-                                <span>|</span>
-                                <a href={userData?.contact?.linkedin || staticData.contact.linkedin} className="hover:text-accent transition" rel="noopener noreferrer" target="_blank">
-                                    LinkedIn
-                                </a>
-                            </div>
-                            {!userData && <SignInButton />}
-                        </div>
-                    </header>
+                document.addEventListener('click', handleClickOutside);
+                return () => document.removeEventListener('click', handleClickOutside);
+            }, [isNavOpen]);
 
-                    {/* Navigation */}
-                    <nav className="sticky top-0 bg-white shadow z-50">
-                        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-                            <div className="flex justify-between items-center py-4">
-                                <button
-                                    className="md:hidden nav-toggle text-primary focus:ring-2 focus:ring-accent focus:outline-none"
-                                    onClick={() => setIsNavOpen(!isNavOpen)}
-                                    aria-label="Toggle navigation menu"
-                                >
-                                    {isNavOpen ? "✕" : "☰"}
-                                </button>
-                                <div className={`flex-col md:flex-row md:flex gap-2 ${isNavOpen ? "nav-open" : "hidden md:flex"}`}>
-                                    {sections.map(({ id, icon: Icon, label }) => (
-                                        <button
-                                            key={id}
-                                            onClick={() => { setActiveSection(id); setIsNavOpen(false); }}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                                                activeSection === id ? "bg-primary text-white" : "hover:bg-gray-200"
-                                            } focus:ring-2 focus:ring-accent focus:outline-none`}
-                                            aria-current={activeSection === id ? "page" : undefined}
-                                            aria-label={`View ${label} section`}
-                                        >
-                                            <Icon size={20} />
-                                            {label}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-
-                    {/* Main Content */}
-                    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-                        {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{error}</div>}
-                        {loading && <div className="text-center text-gray-600">Loading...</div>}
-
-                        {/* About Section */}
-                        <section className={`${activeSection === "about" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">About Me</h2>
-                                <p className="text-gray-600 leading-relaxed">{userData?.bio || staticData.bio}</p>
-                            </div>
-                        </section>
-
-                        {/* Experience Section */}
-                        <section className={`${activeSection === "experience" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Experience</h2>
-                                <div className="space-y-6">
-                                    {(userData?.experience || staticData.experience).map((exp, index) => (
-                                        <div key={index} className="border-l-4 border-accent pl-4">
-                                            <h3 className="text-xl font-semibold text-primary">{exp.title}</h3>
-                                            <p className="text-gray-600">{exp.organization}</p>
-                                            <p className="text-gray-500">{exp.period}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Education Section */}
-                        <section className={`${activeSection === "education" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Education</h2>
-                                <div className="space-y-4">
-                                    {(userData?.education || staticData.education).map((edu, index) => (
-                                        <div key={index} className="border-l-4 border-accent pl-4">
-                                            <h3 className="text-xl font-semibold text-primary">{edu.degree}</h3>
-                                            <p className="text-gray-600">{edu.institution}</p>
-                                            <p className="text-gray-500">{edu.period}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Skills Section */}
-                        <section className={`${activeSection === "skills" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Skills</h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {(userData?.skills || staticData.skills).map((skill, index) => (
-                                        <span key={index} className="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                            {skill}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Publications Section */}
-                        <section className={`${activeSection === "publications" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Publications</h2>
-                                <ul className="list-disc list-inside text-gray-600">
-                                    {(userData?.publications || staticData.publications).map((pub, index) => (
-                                        <li key={index}>{pub}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* Projects Section */}
-                        <section className={`${activeSection === "projects" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Projects</h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {(userData?.projects || staticData.projects).map((project, index) => (
-                                        <div key={index} className="border border-gray-200 rounded-lg p-4 hover:border-accent transition">
-                                            <p className="text-gray-600">{project}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Research Interests Section */}
-                        <section className={`${activeSection === "research" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">Research Interests</h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {(userData?.researchInterests || staticData.researchInterests).map((interest, index) => (
-                                        <span key={index} className="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                            {interest}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* AI News Section */}
-                        <section className={`${activeSection === "news" ? "block" : "hidden"}`}>
-                            <div className="bg-white rounded-lg shadow p-6 card-hover">
-                                <h2 className="text-2xl font-bold text-primary mb-4">AI News</h2>
-                                <div className="space-y-4">
-                                    {newsArticles.length === 0 ? (
-                                        <p>Loading...</p>
-                                    ) : (
-                                        newsArticles.map((article, index) => (
-                                            <div key={index} className="border-l-4 border-accent pl-4">
-                                                <h3 className="text-xl font-semibold text-primary">{article.title}</h3>
-                                                <p className="text-gray-600">{article.description}</p>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            </div>
-                        </section>
-                    </main>
-                </div>
-            );
-        }
-
-        // Render with React 18
-        const root = createRoot(document.getElementById("root"));
-        root.render(<Portfolio />);
-    </script>
-</body>
-</html>
+            const renderActiveSection = () => {
+                const sectionProps = { userData, loading };
+                
+                switch (activeSection) {
+                    case 'about': return <AboutSection {...sectionProps} />;
+                    case 'experience': return <ExperienceSection {...sectionProps} />;
+                    case 'education': return <EducationSection {...sectionProps} />;
+                    case 'skills': return <SkillsSection {...sectionProps} /
