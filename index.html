@@ -48,6 +48,19 @@
             color: white;
             padding: 3rem 1rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
         }
 
         .profile-img {
@@ -58,18 +71,30 @@
             border: 4px solid rgba(255, 255, 255, 0.3);
             object-fit: cover;
             box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
         }
 
         .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .header .subtitle {
             font-size: 1.25rem;
             margin-bottom: 1.5rem;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-links {
@@ -78,21 +103,25 @@
             justify-content: center;
             gap: 1rem;
             margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-links a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.1);
             transition: var(--transition);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .contact-links a:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         /* Navigation Styles */
@@ -102,6 +131,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid var(--border-gray);
         }
 
         .nav-container {
@@ -118,6 +148,14 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--primary-color);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-toggle:hover {
+            background: var(--bg-light);
+            transform: scale(1.1);
         }
 
         .nav-menu {
@@ -131,6 +169,7 @@
             box-shadow: var(--shadow-lg);
             padding: 1rem;
             gap: 0.5rem;
+            border-bottom: 1px solid var(--border-gray);
         }
 
         .nav-menu.active {
@@ -146,17 +185,26 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             font-size: 1rem;
+            font-weight: 500;
+            text-align: left;
+            width: 100%;
         }
 
         .nav-item:hover {
             background: var(--bg-light);
+            transform: translateX(4px);
         }
 
         .nav-item.active {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a8a 100%);
             color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-item.active:hover {
+            transform: translateX(4px) scale(1.02);
         }
 
         /* Main Content */
@@ -167,7 +215,7 @@
 
         .section {
             display: none;
-            animation: fadeIn 0.5s ease-in;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .section.active {
@@ -176,11 +224,12 @@
 
         .card {
             background: var(--bg-white);
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             box-shadow: var(--shadow);
             padding: 2rem;
             margin-bottom: 2rem;
             transition: var(--transition);
+            border: 1px solid var(--border-gray);
         }
 
         .card:hover {
@@ -194,7 +243,26 @@
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
         }
 
         /* Experience & Education */
@@ -203,17 +271,27 @@
             padding-left: 1.5rem;
             margin-bottom: 2rem;
             position: relative;
+            padding-top: 0.5rem;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -8px;
-            top: 0;
-            width: 12px;
-            height: 12px;
+            left: -10px;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--accent-color);
+            border: 3px solid var(--bg-white);
+            box-shadow: 0 0 0 3px var(--accent-color);
+        }
+
+        .timeline-item:hover {
+            background: linear-gradient(90deg, transparent 0%, rgba(20, 184, 166, 0.02) 100%);
+            border-radius: 0 8px 8px 0;
+            padding-right: 1rem;
+            margin-right: -1rem;
         }
 
         .timeline-item h3 {
@@ -225,20 +303,40 @@
 
         .timeline-item .organization {
             font-weight: 500;
-            color: var(--text-gray);
+            color: var(--text-dark);
             margin-bottom: 0.25rem;
+            font-size: 1.05rem;
         }
 
         .timeline-item .period {
             color: var(--accent-color);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .description {
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .timeline-item .honor {
+            color: #d97706;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .timeline-item .gpa {
+            color: #059669;
+            font-weight: 700;
+            margin-top: 0.25rem;
         }
 
         /* Skills & Research Interests */
         .tags-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 0.75rem;
             margin-top: 1rem;
         }
@@ -246,25 +344,44 @@
         .tag {
             background: linear-gradient(135deg, var(--bg-light) 0%, #e5e7eb 100%);
             color: var(--text-dark);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             border-radius: 25px;
             text-align: center;
             font-size: 0.9rem;
             font-weight: 500;
             transition: var(--transition);
             border: 1px solid var(--border-gray);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #0f766e 100%);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .tag:hover::before {
+            left: 0;
         }
 
         .tag:hover {
-            background: linear-gradient(135deg, var(--accent-color) 0%, #0f766e 100%);
             color: white;
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -272,44 +389,68 @@
         .project-card {
             background: var(--bg-white);
             border: 1px solid var(--border-gray);
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             padding: 1.5rem;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
 
         .project-card:hover {
             box-shadow: var(--shadow-lg);
             transform: translateY(-4px);
+            border-color: var(--accent-color);
         }
 
         .project-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
+            align-items: flex-start;
             margin-bottom: 1rem;
+            gap: 1rem;
         }
 
         .project-title {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--primary-color);
+            line-height: 1.3;
         }
 
         .status-badge {
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .status-completed {
             background: #d1fae5;
             color: #065f46;
+            border: 1px solid #a7f3d0;
         }
 
         .status-progress {
             background: #fef3c7;
             color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .project-description {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         .tech-tags {
@@ -326,22 +467,30 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 500;
+            border: 1px solid rgba(20, 184, 166, 0.2);
         }
 
         /* Publications */
         .publication-item {
-            background: var(--bg-light);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
             padding: 1.5rem;
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             margin-bottom: 1rem;
             border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .publication-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateX(4px);
         }
 
         .publication-title {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
 
         .publication-meta {
@@ -358,7 +507,8 @@
 
         .publication-year {
             color: var(--accent-color);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         .publication-type {
@@ -367,40 +517,55 @@
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* News Section */
         .news-item {
             background: var(--bg-white);
             border: 1px solid var(--border-gray);
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 1rem;
             transition: var(--transition);
+            position: relative;
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 0 0 0 12px;
         }
 
         .news-item:hover {
             box-shadow: var(--shadow);
+            transform: translateY(-2px);
         }
 
         .news-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
+            align-items: flex-start;
             margin-bottom: 1rem;
+            gap: 1rem;
         }
 
         .news-title {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--primary-color);
+            line-height: 1.4;
         }
 
         .news-meta {
             display: flex;
             flex-direction: column;
-            align-items: end;
+            align-items: flex-end;
             gap: 0.5rem;
         }
 
@@ -410,12 +575,19 @@
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
+            border: 1px solid rgba(20, 184, 166, 0.2);
         }
 
         .news-date {
             color: var(--text-gray);
             font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .news-description {
+            color: var(--text-gray);
+            line-height: 1.6;
         }
 
         /* Loading & Error States */
@@ -442,12 +614,32 @@
             padding: 1rem;
             border-radius: var(--border-radius);
             margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            opacity: 0.8;
         }
 
         /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         @keyframes spin {
@@ -456,6 +648,39 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 640px) {
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-links a {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tags-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .news-header,
+            .project-header,
+            .publication-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .news-meta {
+                align-items: flex-start;
+            }
+        }
+
         @media (min-width: 768px) {
             .nav-toggle {
                 display: none;
@@ -468,10 +693,23 @@
                 box-shadow: none;
                 padding: 0;
                 gap: 0.5rem;
+                border-bottom: none;
+            }
+
+            .nav-item:hover {
+                transform: translateY(-2px);
+            }
+
+            .nav-item.active:hover {
+                transform: translateY(-2px) scale(1.02);
             }
 
             .header h1 {
                 font-size: 3rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.5rem;
             }
 
             .contact-links {
@@ -513,21 +751,21 @@
                     title: "Software Engineer", 
                     organization: "Jordan Customs", 
                     period: "2023 - Present",
-                    description: "Developing and maintaining software systems for customs operations."
+                    description: "Developing and maintaining software systems for customs operations and international trade facilitation."
                 },
                 { 
                     id: 2,
                     title: "Teaching and Research Assistant", 
                     organization: "Al Hussein Technical University", 
                     period: "Mar 2023 - Present",
-                    description: "Supporting academic research and teaching activities in computer science."
+                    description: "Supporting academic research and teaching activities in computer science and AI-related courses."
                 },
                 { 
                     id: 3,
                     title: "Teacher Assistant", 
                     organization: "Jordan University of Science and Technology", 
                     period: "Sep 2021 - Jan 2023",
-                    description: "Assisted in teaching computer science courses and research projects."
+                    description: "Assisted in teaching computer science courses and supervised student research projects."
                 }
             ],
             education: [
@@ -547,18 +785,24 @@
                     honors: "Graduated with Honors"
                 }
             ],
-            skills: ["Python", "JavaScript", "HTML", "CSS", "Flask", "React", "TensorFlow", "Oracle Database", "Firebase", "Machine Learning", "Deep Learning", "Computer Vision", "NLP", "Git", "Docker", "AWS"],
+            skills: [
+                "Python", "JavaScript", "HTML5", "CSS3", "React", "Flask", "Django",
+                "TensorFlow", "PyTorch", "Scikit-learn", "OpenCV", "NLTK", "Pandas", "NumPy",
+                "Oracle Database", "MySQL", "PostgreSQL", "MongoDB", "Firebase",
+                "Machine Learning", "Deep Learning", "Computer Vision", "Natural Language Processing",
+                "Git", "Docker", "AWS", "Linux", "REST APIs", "Agile Development"
+            ],
             publications: [
                 {
                     id: 1,
-                    title: "Lexical Complexity Prediction",
+                    title: "Lexical Complexity Prediction Using Advanced NLP Techniques",
                     venue: "SemEval-2021",
                     year: "2021",
                     type: "Conference"
                 },
                 {
                     id: 2,
-                    title: "Exploring Neural Networks for NLP",
+                    title: "Exploring Neural Networks for Natural Language Processing Applications",
                     venue: "Journal of AI Research",
                     year: "2020",
                     type: "Journal"
@@ -567,60 +811,76 @@
             projects: [
                 {
                     id: 1,
-                    title: "Sentiment Analysis Tool",
-                    description: "Advanced sentiment analysis using Python and NLTK for social media data processing",
-                    technologies: ["Python", "NLTK", "Flask"],
+                    title: "Sentiment Analysis Platform",
+                    description: "Advanced sentiment analysis system using Python and NLTK for social media data processing with real-time analytics dashboard.",
+                    technologies: ["Python", "NLTK", "Flask", "React", "MongoDB"],
                     status: "Completed"
                 },
                 {
                     id: 2,
-                    title: "Image Classification System",
-                    description: "Deep learning model for automated image classification with 95% accuracy",
-                    technologies: ["TensorFlow", "Python", "Computer Vision"],
+                    title: "Computer Vision Classification System",
+                    description: "Deep learning model for automated image classification with 95% accuracy, deployed using TensorFlow and Docker.",
+                    technologies: ["TensorFlow", "Python", "Computer Vision", "Docker", "AWS"],
                     status: "Completed"
                 },
                 {
                     id: 3,
-                    title: "Intelligent Chatbot",
-                    description: "NLP-driven chatbot for automated customer service interactions",
-                    technologies: ["Python", "NLP", "Machine Learning"],
+                    title: "Intelligent Customer Service Chatbot",
+                    description: "NLP-driven chatbot for automated customer service interactions with natural language understanding capabilities.",
+                    technologies: ["Python", "NLP", "Machine Learning", "FastAPI", "PostgreSQL"],
+                    status: "In Progress"
+                },
+                {
+                    id: 4,
+                    title: "Predictive Analytics Dashboard",
+                    description: "Real-time predictive analytics platform for business intelligence using machine learning algorithms.",
+                    technologies: ["Python", "Scikit-learn", "React", "D3.js", "MySQL"],
                     status: "In Progress"
                 }
             ],
             researchInterests: [
                 "Artificial Intelligence", "Machine Learning", "Deep Learning", 
-                "Computer Vision", "Interpretable Models", "Adversarial Attacks", 
-                "Pattern Recognition", "Natural Language Processing"
+                "Computer Vision", "Interpretable AI Models", "Adversarial Machine Learning", 
+                "Pattern Recognition", "Natural Language Processing", "Neural Networks",
+                "AI Ethics", "Automated Machine Learning", "Transfer Learning"
             ],
             contact: {
                 email: "qusaibanyismail@gmail.com",
                 phone: "0770131516",
-                linkedin: "https://www.linkedin.com/in/qusai-ismail-465b44116/"
+                linkedin: "https://www.linkedin.com/in/qusai-ismail-465b44116/",
+                github: "https://github.com/qusaiismail"
             },
-            profilePicture: "https://via.placeholder.com/150x150/1e40af/ffffff?text=QI"
+            profilePicture: "Qusai-Ismail.png"
         };
 
         const staticNews = [
             { 
                 id: 1,
-                title: "AI Research Breakthroughs in 2024", 
-                description: "New algorithms enhance robot learning speed and accuracy in complex environments, showing promising results in autonomous systems.",
+                title: "Revolutionary AI Breakthroughs in 2024", 
+                description: "New algorithms enhance robot learning speed and accuracy in complex environments, showing promising results in autonomous systems and real-world applications.",
                 category: "Research",
                 date: "2024-09-10"
             },
             { 
                 id: 2,
-                title: "Ethics in AI Development", 
-                description: "Growing calls for transparency and regulation in AI development across industries as AI becomes more integrated into daily life.",
+                title: "AI Ethics and Regulation Framework", 
+                description: "Growing calls for transparency and regulation in AI development across industries as artificial intelligence becomes more integrated into daily life and business operations.",
                 category: "Ethics",
                 date: "2024-09-08"
             },
             { 
                 id: 3,
-                title: "AI in Healthcare Revolution", 
-                description: "AI tools improve diagnostic accuracy and patient outcomes in medical applications, with new FDA approvals for AI-assisted diagnostics.",
+                title: "AI-Powered Healthcare Revolution", 
+                description: "Artificial intelligence tools significantly improve diagnostic accuracy and patient outcomes in medical applications, with new FDA approvals for AI-assisted medical diagnostics.",
                 category: "Healthcare",
                 date: "2024-09-05"
+            },
+            {
+                id: 4,
+                title: "Future of Work: AI Integration",
+                description: "How artificial intelligence is reshaping job markets and creating new opportunities for collaboration between humans and AI systems.",
+                category: "Technology",
+                date: "2024-09-03"
             }
         ];
 
@@ -653,6 +913,7 @@
                 // Navigation toggle
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('nav-toggle')) {
+                        e.stopPropagation();
                         this.toggleNav();
                     }
                     
@@ -669,221 +930,22 @@
                         this.closeNav();
                     }
                 });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isNavOpen) {
+                        this.closeNav();
+                    }
+                });
+
+                // Smooth scroll behavior for better UX
+                document.documentElement.style.scrollBehavior = 'smooth';
             }
 
             toggleNav() {
                 this.isNavOpen = !this.isNavOpen;
                 const navMenu = document.querySelector('.nav-menu');
                 navMenu.classList.toggle('active', this.isNavOpen);
-            }
-
-            closeNav() {
-                this.isNavOpen = false;
-                const navMenu = document.querySelector('.nav-menu');
-                navMenu.classList.remove('active');
-            }
-
-            setActiveSection(section) {
-                this.activeSection = section;
                 
-                // Update navigation
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.toggle('active', item.dataset.section === section);
-                });
-                
-                // Update sections
-                document.querySelectorAll('.section').forEach(sec => {
-                    sec.classList.toggle('active', sec.id === section);
-                });
-            }
-
-            render() {
-                const root = document.getElementById('root');
-                root.innerHTML = this.getHTML();
-                
-                // Set initial active section
-                setTimeout(() => {
-                    this.setActiveSection(this.activeSection);
-                }, 100);
-            }
-
-            getHTML() {
-                return `
-                    ${this.getHeader()}
-                    ${this.getNavigation()}
-                    <main class="main">
-                        <div class="container">
-                            ${this.getSections()}
-                        </div>
-                    </main>
-                `;
-            }
-
-            getHeader() {
-                return `
-                    <header class="header">
-                        <div class="container">
-                            <img src="${this.userData.Qusai-Ismail.png}" alt="${this.userData.name}" class="profile-img">
-                            <h1>${this.userData.name}</h1>
-                            <p class="subtitle">${this.userData.title}</p>
-                            <div class="contact-links">
-                                <a href="mailto:${this.userData.contact.email}">📧 ${this.userData.contact.email}</a>
-                                <a href="tel:${this.userData.contact.phone}">📞 ${this.userData.contact.phone}</a>
-                                <a href="${this.userData.contact.linkedin}" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
-                            </div>
-                        </div>
-                    </header>
-                `;
-            }
-
-            getNavigation() {
-                return `
-                    <nav class="nav">
-                        <div class="nav-container container">
-                            <button class="nav-toggle">☰</button>
-                            <div class="nav-menu">
-                                ${sections.map(section => `
-                                    <button class="nav-item" data-section="${section.id}">
-                                        <span>${section.icon}</span>
-                                        ${section.label}
-                                    </button>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </nav>
-                `;
-            }
-
-            getSections() {
-                return sections.map(section => `
-                    <section id="${section.id}" class="section">
-                        <div class="card">
-                            ${this.getSectionContent(section.id)}
-                        </div>
-                    </section>
-                `).join('');
-            }
-
-            getSectionContent(sectionId) {
-                switch(sectionId) {
-                    case 'about':
-                        return `
-                            <h2 class="section-title">About Me</h2>
-                            <p>${this.userData.bio}</p>
-                        `;
-                    
-                    case 'experience':
-                        return `
-                            <h2 class="section-title">Professional Experience</h2>
-                            ${this.userData.experience.map(exp => `
-                                <div class="timeline-item">
-                                    <h3>${exp.title}</h3>
-                                    <p class="organization">${exp.organization}</p>
-                                    <p class="period">${exp.period}</p>
-                                    ${exp.description ? `<p style="margin-top: 0.5rem; color: var(--text-gray);">${exp.description}</p>` : ''}
-                                </div>
-                            `).join('')}
-                        `;
-                    
-                    case 'education':
-                        return `
-                            <h2 class="section-title">Education</h2>
-                            ${this.userData.education.map(edu => `
-                                <div class="timeline-item">
-                                    <h3>${edu.degree}</h3>
-                                    <p class="organization">${edu.institution}</p>
-                                    <p class="period">${edu.period}</p>
-                                    ${edu.gpa ? `<p style="margin-top: 0.25rem; color: #059669; font-weight: 600;">${edu.gpa}</p>` : ''}
-                                    ${edu.honors ? `<p style="color: #d97706; font-weight: 500;">${edu.honors}</p>` : ''}
-                                </div>
-                            `).join('')}
-                        `;
-                    
-                    case 'skills':
-                        return `
-                            <h2 class="section-title">Technical Skills</h2>
-                            <div class="tags-grid">
-                                ${this.userData.skills.map(skill => `
-                                    <span class="tag">${skill}</span>
-                                `).join('')}
-                            </div>
-                        `;
-                    
-                    case 'publications':
-                        return `
-                            <h2 class="section-title">Publications</h2>
-                            ${this.userData.publications.map(pub => `
-                                <div class="publication-item">
-                                    <h3 class="publication-title">${pub.title}</h3>
-                                    <div class="publication-meta">
-                                        <span class="publication-venue">${pub.venue}</span>
-                                        <span class="publication-year">${pub.year}</span>
-                                        <span class="publication-type">${pub.type}</span>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        `;
-                    
-                    case 'projects':
-                        return `
-                            <h2 class="section-title">Featured Projects</h2>
-                            <div class="projects-grid">
-                                ${this.userData.projects.map(project => `
-                                    <div class="project-card">
-                                        <div class="project-header">
-                                            <h3 class="project-title">${project.title}</h3>
-                                            <span class="status-badge ${project.status === 'Completed' ? 'status-completed' : 'status-progress'}">
-                                                ${project.status}
-                                            </span>
-                                        </div>
-                                        <p style="color: var(--text-gray); margin-bottom: 1rem;">${project.description}</p>
-                                        <div class="tech-tags">
-                                            ${project.technologies.map(tech => `
-                                                <span class="tech-tag">${tech}</span>
-                                            `).join('')}
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                    
-                    case 'research':
-                        return `
-                            <h2 class="section-title">Research Interests</h2>
-                            <div class="tags-grid">
-                                ${this.userData.researchInterests.map(interest => `
-                                    <span class="tag">${interest}</span>
-                                `).join('')}
-                            </div>
-                        `;
-                    
-                    case 'news':
-                        return `
-                            <h2 class="section-title">Latest AI News</h2>
-                            ${this.newsArticles.map(article => `
-                                <div class="news-item">
-                                    <div class="news-header">
-                                        <h3 class="news-title">${article.title}</h3>
-                                        <div class="news-meta">
-                                            <span class="category-badge">${article.category}</span>
-                                            <span class="news-date">${article.date}</span>
-                                        </div>
-                                    </div>
-                                    <p style="color: var(--text-gray);">${article.description}</p>
-                                </div>
-                            `).join('')}
-                        `;
-                    
-                    default:
-                        return '<p>Section not found</p>';
-                }
-            }
-        }
-
-        // Initialize the portfolio when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new Portfolio();
-        });
-    </script>
-</body>
-</html>
+                // Update aria-expanded for accessibility
+                const navToggle = document.querySelector('.nav-
