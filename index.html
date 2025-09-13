@@ -905,47 +905,327 @@
             }
 
             init() {
-                this.render();
-                this.bindEvents();
+                try {
+                    this.render();
+                    this.bindEvents();
+                } catch (error) {
+                    this.showError(`Initialization failed: ${error.message}`);
+                }
+            }
+
+            showError(message) {
+                const root = document.getElementById('root');
+                if (root) {
+                    root.innerHTML = `
+                        <div class="error-message">
+                            <p>Error: ${message}</p>
+                            <p>Please try refreshing the page or contact support.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            render() {
+                try {
+                    const root = document.getElementById('root');
+                    if (!root) throw new Error("Root element not found");
+
+                    // Validate userData
+                    if (!this.userData || !this.userData.name || !this.userData.contact) {
+                        throw new Error("Invalid or missing user data");
+                    }
+
+                    // Render main structure
+                    root.innerHTML = `
+                        <header class="header">
+                            <img src="${this.userData.profilePicture || 'https://via.placeholder.com/120'}" alt="Profile Picture" class="profile-img" onerror="this.src='https://via.placeholder.com/120'; this.alt='Profile picture unavailable'">
+                            <h1>${this.userData.name || 'Unknown Name'}</h1>
+                            <p class="subtitle">${this.userData.title || 'No title available'}</p>
+                            <div class="contact-links">
+                                <a href="mailto:${this.userData.contact.email || '#'}" aria-label="Email">Email</a>
+                                <a href="tel:${this.userData.contact.phone || '#'}" aria-label="Phone">Phone</a>
+                                <a href="${this.userData.contact.linkedin || '#'}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+                                <a href="${this.userData.contact.github || '#'}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+                            </div>
+                        </header>
+                        <nav class="nav">
+                            <div class="nav-container container">
+                                <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+                                    ☰
+                                </button>
+                                <div class="nav-menu">
+                                    ${sections.map(section => `
+                                        <button class="nav-item ${section.id === this.activeSection ? 'active' : ''}" data-section="${section.id}" aria-current="${section.id === this.activeSection ? 'page' : 'false'}">
+                                            <span>${section.icon}</span> ${section.label}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </nav>
+                        <main class="main">
+                            ${this.renderSection(this.activeSection)}
+                        </main>
+                        <footer class="footer">
+                            <p>&copy; ${new Date().getFullYear()} ${this.userData.name || 'Qusai Ismail'}. All rights reserved.</p>
+                        </footer>
+                    `;
+                } catch (error) {
+                    this.showError(`Rendering failed: ${error.message}`);
+                }
+            }
+
+            renderSection(sectionId) {
+                try {
+                    switch (sectionId) {
+                        case 'about':
+                            return `
+                                <section id="about" class="section active">
+                                    <h2 class="section-title">About Me</h2>
+                                    <div class="card">
+                                        <p class="about-content">${this.userData.bio || 'No bio available'}</p>
+                                    </div>
+                                </section>
+                            `;
+                        case 'experience':
+                            return `
+                                <section id="experience" class="section active">
+                                    <h2 class="section-title">Experience</h2>
+                                    <div class="card">
+                                        ${this.userData.experience?.length ? this.userData.experience.map(exp => `
+                                            <div class="timeline-item">
+                                                <h3>${exp.title || 'Untitled'}</h3>
+                                                <p class="organization">${exp.organization || 'Unknown Organization'}</p>
+                                                <p class="period">${exp.period || 'Unknown Period'}</p>
+                                                <p class="description">${exp.description || 'No description'}</p>
+                                            </div>
+                                        `).join('') : '<p>No experience data available</p>'}
+                                    </div>
+                                </section>
+                            `;
+                        case 'education':
+                            return `
+                                <section id="education" class="section active">
+                                    <h2 class="section-title">Education</h2>
+                                    <div class="card">
+                                        ${this.userData.education?.length ? this.userData.education.map(edu => `
+                                            <div class="timeline-item">
+                                                <h3>${edu.degree || 'Untitled'}</h3>
+                                                <p class="organization">${edu.institution || 'Unknown Institution'}</p>
+                                                <p class="period">${edu.period || 'Unknown Period'}</p>
+                                                ${edu.gpa ? `<p class="gpa">${edu.gpa}</p>` : ''}
+                                                ${edu.honors ? `<p class="honor">${edu.honors}</p>` : ''}
+                                            </div>
+                                        `).join('') : '<p>No education data available</p>'}
+                                    </div>
+                                </section>
+                            `;
+                        case 'skills':
+                            return `
+                                <section id="skills" class="section active">
+                                    <h2 class="section-title">Skills</h2>
+                                    <div class="card">
+                                        <div class="tags-grid">
+                                            ${this.userData.skills?.length ? this.userData.skills.map(skill => `
+                                                <span class="tag">${skill}</span>
+                                            `).join('') : '<p>No skills data available</p>'}
+                                        </div>
+                                    </div>
+                                </section>
+                            `;
+                        case 'publications':
+                            return `
+                                <section id="publications" class="section active">
+                                    <h2 class="section-title">Publications</h2>
+                                    <div class="card">
+                                        ${this.userData.publications?.length ? this.userData.publications.map(pub => `
+                                            <div class="publication-item">
+                                                <h3 class="publication-title">${pub.title || 'Untitled'}</h3>
+                                                <div class="publication-meta">
+                                                    <span class="publication-venue">${pub.venue || 'Unknown Venue'}</span>
+                                                    <span class="publication-year">${pub.year || 'Unknown Year'}</span>
+                                                    <span class="publication-type">${pub.type || 'Unknown Type'}</span>
+                                                </div>
+                                            </div>
+                                        `).join('') : '<p>No publications data available</p>'}
+                                    </div>
+                                </section>
+                            `;
+                        case 'projects':
+                            return `
+                                <section id="projects" class="section active">
+                                    <h2 class="section-title">Projects</h2>
+                                    <div class="projects-grid">
+                                        ${this.userData.projects?.length ? this.userData.projects.map(project => `
+                                            <div class="project-card">
+                                                <div class="project-header">
+                                                    <h3 class="project-title">${project.title || 'Untitled'}</h3>
+                                                    <span class="status-badge status-${project.status?.toLowerCase() || 'unknown'}">${project.status || 'Unknown'}</span>
+                                                </div>
+                                                <p class="project-description">${project.description || 'No description'}</p>
+                                                <div class="tech-tags">
+                                                    ${project.technologies?.length ? project.technologies.map(tech => `
+                                                        <span class="tech-tag">${tech}</span>
+                                                    `).join('') : '<span>No technologies listed</span>'}
+                                                </div>
+                                            </div>
+                                        `).join('') : '<p>No projects data available</p>'}
+                                    </div>
+                                </section>
+                            `;
+                        case 'research':
+                            return `
+                                <section id="research" class="section active">
+                                    <h2 class="section-title">Research Interests</h2>
+                                    <div class="card">
+                                        <div class="tags-grid">
+                                            ${this.userData.researchInterests?.length ? this.userData.researchInterests.map(interest => `
+                                                <span class="tag">${interest}</span>
+                                            `).join('') : '<p>No research interests data available</p>'}
+                                        </div>
+                                    </div>
+                                </section>
+                            `;
+                        case 'news':
+                            return `
+                                <section id="news" class="section active">
+                                    <h2 class="section-title">AI News</h2>
+                                    ${this.newsArticles?.length ? this.newsArticles.map(news => `
+                                        <div class="news-item">
+                                            <div class="news-header">
+                                                <h3 class="news-title">${news.title || 'Untitled'}</h3>
+                                                <div class="news-meta">
+                                                    <span class="category-badge">${news.category || 'Unknown Category'}</span>
+                                                    <span class="news-date">${news.date || 'Unknown Date'}</span>
+                                                </div>
+                                            </div>
+                                            <p class="news-description">${news.description || 'No description'}</p>
+                                        </div>
+                                    `).join('') : '<p>No news data available</p>'}
+                                </section>
+                            `;
+                        default:
+                            return `<section class="section active"><p>Section not found</p></section>`;
+                    }
+                } catch (error) {
+                    return `
+                        <section class="section active">
+                            <div class="error-message">
+                                <p>Error rendering section: ${error.message}</p>
+                            </div>
+                        </section>
+                    `;
+                }
             }
 
             bindEvents() {
-                // Navigation toggle
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('nav-toggle')) {
-                        e.stopPropagation();
-                        this.toggleNav();
-                    }
-                    
-                    if (e.target.classList.contains('nav-item')) {
-                        const section = e.target.dataset.section;
-                        if (section) {
-                            this.setActiveSection(section);
+                try {
+                    // Navigation toggle
+                    document.addEventListener('click', (e) => {
+                        const navToggle = e.target.closest('.nav-toggle');
+                        const navItem = e.target.closest('.nav-item');
+
+                        if (navToggle) {
+                            e.stopPropagation();
+                            this.toggleNav();
+                        } else if (navItem) {
+                            const section = navItem.dataset.section;
+                            if (section) {
+                                this.setActiveSection(section);
+                                this.closeNav();
+                            }
+                        } else if (!e.target.closest('.nav') && this.isNavOpen) {
                             this.closeNav();
                         }
-                    }
-                    
-                    // Close nav when clicking outside
-                    if (!e.target.closest('.nav') && this.isNavOpen) {
-                        this.closeNav();
-                    }
-                });
+                    });
 
-                // Keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.isNavOpen) {
-                        this.closeNav();
-                    }
-                });
+                    // Keyboard navigation
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && this.isNavOpen) {
+                            this.closeNav();
+                        }
+                    });
 
-                // Smooth scroll behavior for better UX
-                document.documentElement.style.scrollBehavior = 'smooth';
+                    // Smooth scroll behavior
+                    document.documentElement.style.scrollBehavior = 'smooth';
+                } catch (error) {
+                    this.showError(`Event binding failed: ${error.message}`);
+                }
             }
 
             toggleNav() {
-                this.isNavOpen = !this.isNavOpen;
-                const navMenu = document.querySelector('.nav-menu');
-                navMenu.classList.toggle('active', this.isNavOpen);
-                
-                // Update aria-expanded for accessibility
-                const navToggle = document.querySelector('.nav-
+                try {
+                    this.isNavOpen = !this.isNavOpen;
+                    const navMenu = document.querySelector('.nav-menu');
+                    const navToggle = document.querySelector('.nav-toggle');
+
+                    if (!navMenu || !navToggle) {
+                        throw new Error("Navigation elements not found");
+                    }
+
+                    navMenu.classList.toggle('active', this.isNavOpen);
+                    navToggle.setAttribute('aria-expanded', this.isNavOpen);
+                    navToggle.setAttribute('aria-label', this.isNavOpen ? 'Close navigation' : 'Open navigation');
+                } catch (error) {
+                    this.showError(`Navigation toggle failed: ${error.message}`);
+                }
+            }
+
+            closeNav() {
+                try {
+                    this.isNavOpen = false;
+                    const navMenu = document.querySelector('.nav-menu');
+                    const navToggle = document.querySelector('.nav-toggle');
+
+                    if (!navMenu || !navToggle) {
+                        throw new Error("Navigation elements not found");
+                    }
+
+                    navMenu.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navToggle.setAttribute('aria-label', 'Open navigation');
+                } catch (error) {
+                    this.showError(`Navigation close failed: ${error.message}`);
+                }
+            }
+
+            setActiveSection(sectionId) {
+                try {
+                    if (!sections.some(section => section.id === sectionId)) {
+                        throw new Error("Invalid section ID");
+                    }
+
+                    this.activeSection = sectionId;
+                    this.render();
+
+                    // Update active nav item
+                    const navItems = document.querySelectorAll('.nav-item');
+                    navItems.forEach(item => {
+                        item.classList.toggle('active', item.dataset.section === sectionId);
+                        item.setAttribute('aria-current', item.dataset.section === sectionId ? 'page' : 'false');
+                    });
+
+                    // Scroll to top of section
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } catch (error) {
+                    this.showError(`Section change failed: ${error.message}`);
+                }
+            }
+        }
+
+        // Initialize portfolio
+        try {
+            const portfolio = new Portfolio();
+        } catch (error) {
+            const root = document.getElementById('root');
+            if (root) {
+                root.innerHTML = `
+                    <div class="error-message">
+                        <p>Error: Failed to initialize portfolio: ${error.message}</p>
+                        <p>Please try refreshing the page or contact support.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
