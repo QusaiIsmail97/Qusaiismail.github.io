@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             inset: 0;
@@ -85,7 +84,6 @@
             z-index: 1;
         }
 
-        /* Header/Nav */
         header {
             position: fixed;
             top: 0;
@@ -161,7 +159,6 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -297,7 +294,6 @@
             filter: grayscale(0%) contrast(1);
         }
 
-        /* Section Styles */
         section {
             padding: 8rem 0;
             position: relative;
@@ -330,7 +326,6 @@
             max-width: 600px;
         }
 
-        /* Timeline Design */
         .timeline {
             position: relative;
         }
@@ -373,7 +368,6 @@
             line-height: 1.8;
         }
 
-        /* Card Grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -439,7 +433,6 @@
             line-height: 1.8;
         }
 
-        /* Skills Layout */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -476,7 +469,6 @@
             width: 100%;
         }
 
-        /* Project Cards */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -546,7 +538,6 @@
             font-weight: 500;
         }
 
-        /* Publications */
         .pub-list {
             display: flex;
             flex-direction: column;
@@ -593,7 +584,6 @@
             font-weight: 600;
         }
 
-        /* Footer */
         footer {
             padding: 4rem 0;
             border-top: 1px solid var(--border);
@@ -637,7 +627,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -742,273 +731,274 @@
         </nav>
     </header>
 
-    <div id="root"></div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1>Hi, I'm<br><span class="highlight">Qusai Ismail</span></h1>
+                        <p class="hero-subtitle">Software Engineer & AI Researcher</p>
+                        <p class="hero-bio">Software Engineer at Jordan Customs and researcher with an M.Sc. in Computer Science from JUST (4.0 GPA, honors). Passionate about AI, ML, DL, Computer Vision, Pattern Recognition, and NLP.</p>
+                        <div class="hero-cta">
+                            <a href="mailto:qusaibanyismail@gmail.com" class="btn btn-primary">Get in Touch →</a>
+                            <a href="https://github.com/qusaiismail" target="_blank" class="btn btn-outline">View Work</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="avatar-container">
+                            <div class="avatar-border"></div>
+                            <img src="Qusai-Ismail.png" alt="Qusai Ismail" class="avatar-img" onerror="this.src='https://via.placeholder.com/400'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Career Path</div>
+                    <h2 class="section-title">Experience</h2>
+                    <p class="section-desc">Professional journey and key achievements in software engineering and research.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - Present</div>
+                        <div class="timeline-content">
+                            <h3>Software Engineer</h3>
+                            <div class="timeline-org">Jordan Customs</div>
+                            <p class="timeline-desc">Developing and maintaining software systems for customs operations and international trade facilitation.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Mar 2023 - Present</div>
+                        <div class="timeline-content">
+                            <h3>Teaching and Research Assistant</h3>
+                            <div class="timeline-org">Al Hussein Technical University</div>
+                            <p class="timeline-desc">Supporting academic research and teaching activities in computer science and AI-related courses.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Sep 2021 - Jan 2023</div>
+                        <div class="timeline-content">
+                            <h3>Teacher Assistant</h3>
+                            <div class="timeline-org">Jordan University of Science and Technology</div>
+                            <p class="timeline-desc">Assisted in teaching computer science courses and supervised student research projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Academic Background</div>
+                    <h2 class="section-title">Education</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-icon">🎓</span>
+                        <h3>M.Sc. in Computer Science</h3>
+                        <div class="card-meta">Jordan University of Science and Technology</div>
+                        <div class="card-subtitle">2021 - 2023</div>
+                        <p><strong style="color: var(--accent)">4.0 GPA</strong> • Graduated with Honors</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">🎓</span>
+                        <h3>B.Sc. in Computer Science</h3>
+                        <div class="card-meta">Yarmouk University</div>
+                        <div class="card-subtitle">2015 - 2019</div>
+                        <p>Graduated with Honors</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Technical Stack</div>
+                    <h2 class="section-title">Skills</h2>
+                </div>
+                <div class="skills-container">
+                    <div class="skill">Python</div>
+                    <div class="skill">JavaScript</div>
+                    <div class="skill">React</div>
+                    <div class="skill">TensorFlow</div>
+                    <div class="skill">PyTorch</div>
+                    <div class="skill">Scikit-learn</div>
+                    <div class="skill">OpenCV</div>
+                    <div class="skill">NLTK</div>
+                    <div class="skill">Docker</div>
+                    <div class="skill">AWS</div>
+                    <div class="skill">Machine Learning</div>
+                    <div class="skill">Deep Learning</div>
+                    <div class="skill">Computer Vision</div>
+                    <div class="skill">NLP</div>
+                    <div class="skill">Flask</div>
+                    <div class="skill">Django</div>
+                    <div class="skill">MongoDB</div>
+                    <div class="skill">PostgreSQL</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Research Output</div>
+                    <h2 class="section-title">Publications</h2>
+                </div>
+                <div class="pub-list">
+                    <div class="publication">
+                        <h3 class="pub-title">JUST-BLUE at SemEval-2021 task 1: Predicting lexical complexity using BERT and RoBERTa</h3>
+                        <div class="pub-meta">
+                            <span class="pub-year">2021</span>
+                            <span>15th International Workshop on Semantic Evaluation</span>
+                            <span class="pub-badge">Cited by 40</span>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3 class="pub-title">Using machine learning algorithms to predict the state of financial inclusion in Africa</h3>
+                        <div class="pub-meta">
+                            <span class="pub-year">2021</span>
+                            <span>12th International Conference on Information and Communication Systems</span>
+                            <span class="pub-badge">Cited by 15</span>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3 class="pub-title">Sentiment analysis of covid-19 vaccination responses from twitter using ensemble learning</h3>
+                        <div class="pub-meta">
+                            <span class="pub-year">2022</span>
+                            <span>13th International Conference on Information and Communication Systems</span>
+                            <span class="pub-badge">Cited by 10</span>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3 class="pub-title">Arabic news summarization based on t5 transformer approach</h3>
+                        <div class="pub-meta">
+                            <span class="pub-year">2023</span>
+                            <span>14th International Conference on Information and Communication Systems</span>
+                            <span class="pub-badge">Cited by 6</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Featured Work</div>
+                    <h2 class="section-title">Projects</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="project">
+                        <div class="project-header">
+                            <div class="project-status status-completed">Completed</div>
+                            <h3>Sentiment Analysis Platform</h3>
+                            <p class="project-desc">Advanced sentiment analysis system using Python and NLTK for social media data processing with real-time analytics.</p>
+                        </div>
+                        <div class="project-footer">
+                            <span class="tech">Python</span>
+                            <span class="tech">NLTK</span>
+                            <span class="tech">Flask</span>
+                            <span class="tech">React</span>
+                            <span class="tech">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-header">
+                            <div class="project-status status-completed">Completed</div>
+                            <h3>Computer Vision Classification System</h3>
+                            <p class="project-desc">Deep learning model for automated image classification with 95% accuracy, deployed using TensorFlow and Docker.</p>
+                        </div>
+                        <div class="project-footer">
+                            <span class="tech">TensorFlow</span>
+                            <span class="tech">Python</span>
+                            <span class="tech">Docker</span>
+                            <span class="tech">AWS</span>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-header">
+                            <div class="project-status status-inprogress">In Progress</div>
+                            <h3>Intelligent Customer Service Chatbot</h3>
+                            <p class="project-desc">NLP-driven chatbot for automated customer service with natural language understanding capabilities.</p>
+                        </div>
+                        <div class="project-footer">
+                            <span class="tech">Python</span>
+                            <span class="tech">NLP</span>
+                            <span class="tech">FastAPI</span>
+                            <span class="tech">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-header">
+                            <div class="project-status status-inprogress">In Progress</div>
+                            <h3>Predictive Analytics Dashboard</h3>
+                            <p class="project-desc">Real-time predictive analytics platform for business intelligence using machine learning algorithms.</p>
+                        </div>
+                        <div class="project-footer">
+                            <span class="tech">Python</span>
+                            <span class="tech">Scikit-learn</span>
+                            <span class="tech">React</span>
+                            <span class="tech">D3.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">// Focus Areas</div>
+                    <h2 class="section-title">Research Interests</h2>
+                </div>
+                <div class="skills-container">
+                    <div class="skill">Artificial Intelligence</div>
+                    <div class="skill">Machine Learning</div>
+                    <div class="skill">Deep Learning</div>
+                    <div class="skill">Computer Vision</div>
+                    <div class="skill">Interpretable AI</div>
+                    <div class="skill">Adversarial ML</div>
+                    <div class="skill">Pattern Recognition</div>
+                    <div class="skill">NLP</div>
+                    <div class="skill">Neural Networks</div>
+                    <div class="skill">AI Ethics</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    &copy; 2024 Qusai Ismail. All rights reserved.
+                </div>
+                <div class="social-links">
+                    <a href="mailto:qusaibanyismail@gmail.com" title="Email">✉</a>
+                    <a href="https://www.linkedin.com/in/qusai-ismail-465b44116/" target="_blank" title="LinkedIn">in</a>
+                    <a href="https://github.com/qusaiismail" target="_blank" title="GitHub">gh</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-const DATA = {
-    name: "Qusai Ismail",
-    title: "Software Engineer & AI Researcher",
-    bio: "Software Engineer at Jordan Customs and researcher with an M.Sc. in Computer Science from JUST (4.0 GPA, honors). Passionate about AI, ML, DL, Computer Vision, Pattern Recognition, and NLP.",
-    experience: [
-        {
-            title: "Software Engineer",
-            org: "Jordan Customs",
-            period: "2023 - Present",
-            desc: "Developing and maintaining software systems for customs operations and international trade facilitation."
-        },
-        {
-            title: "Teaching and Research Assistant",
-            org: "Al Hussein Technical University",
-            period: "Mar 2023 - Present",
-            desc: "Supporting academic research and teaching activities in computer science and AI-related courses."
-        },
-        {
-            title: "Teacher Assistant",
-            org: "Jordan University of Science and Technology",
-            period: "Sep 2021 - Jan 2023",
-            desc: "Assisted in teaching computer science courses and supervised student research projects."
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
         }
-    ],
-    education: [
-        {
-            degree: "M.Sc. in Computer Science",
-            school: "Jordan University of Science and Technology",
-            period: "2021 - 2023",
-            gpa: "4.0 GPA",
-            honors: "Graduated with Honors"
-        },
-        {
-            degree: "B.Sc. in Computer Science",
-            school: "Yarmouk University",
-            period: "2015 - 2019",
-            honors: "Graduated with Honors"
-        }
-    ],
-    skills: [
-        "Python", "JavaScript", "React", "TensorFlow", "PyTorch", "Scikit-learn",
-        "OpenCV", "NLTK", "Docker", "AWS", "Machine Learning", "Deep Learning",
-        "Computer Vision", "NLP", "Flask", "Django", "MongoDB", "PostgreSQL"
-    ],
-    publications: [
-        {
-            title: "JUST-BLUE at SemEval-2021 task 1: Predicting lexical complexity using BERT and RoBERTa",
-            venue: "15th International Workshop on Semantic Evaluation",
-            year: 2021,
-            cited: 40
-        },
-        {
-            title: "Using machine learning algorithms to predict the state of financial inclusion in Africa",
-            venue: "12th International Conference on Information and Communication Systems",
-            year: 2021,
-            cited: 15
-        },
-        {
-            title: "Sentiment analysis of covid-19 vaccination responses from twitter using ensemble learning",
-            venue: "13th International Conference on Information and Communication Systems",
-            year: 2022,
-            cited: 10
-        },
-        {
-            title: "Arabic news summarization based on t5 transformer approach",
-            venue: "14th International Conference on Information and Communication Systems",
-            year: 2023,
-            cited: 6
-        }
-    ],
-    projects: [
-        {
-            title: "Sentiment Analysis Platform",
-            desc: "Advanced sentiment analysis system using Python and NLTK for social media data processing with real-time analytics.",
-            tech: ["Python", "NLTK", "Flask", "React", "MongoDB"],
-            status: "Completed"
-        },
-        {
-            title: "Computer Vision Classification System",
-            desc: "Deep learning model for automated image classification with 95% accuracy, deployed using TensorFlow and Docker.",
-            tech: ["TensorFlow", "Python", "Docker", "AWS"],
-            status: "Completed"
-        },
-        {
-            title: "Intelligent Customer Service Chatbot",
-            desc: "NLP-driven chatbot for automated customer service with natural language understanding capabilities.",
-            tech: ["Python", "NLP", "FastAPI", "PostgreSQL"],
-            status: "In Progress"
-        },
-        {
-            title: "Predictive Analytics Dashboard",
-            desc: "Real-time predictive analytics platform for business intelligence using machine learning algorithms.",
-            tech: ["Python", "Scikit-learn", "React", "D3.js"],
-            status: "In Progress"
-        }
-    ],
-    research: [
-        "Artificial Intelligence", "Machine Learning", "Deep Learning",
-        "Computer Vision", "Interpretable AI", "Adversarial ML",
-        "Pattern Recognition", "NLP", "Neural Networks", "AI Ethics"
-    ],
-    contact: {
-        email: "qusaibanyismail@gmail.com",
-        phone: "0770131516",
-        linkedin: "https://www.linkedin.com/in/qusai-ismail-465b44116/",
-        github: "https://github.com/qusaiismail"
-    }
-};
 
-function toggleMenu() {
-    document.getElementById('navMenu').classList.toggle('active');
-}
-
-const App = {
-    init() {
-        document.getElementById('root').innerHTML = `
-            ${this.hero()}
-            ${this.experience()}
-            ${this.education()}
-            ${this.skills()}
-            ${this.publications()}
-            ${this.projects()}
-            ${this.research()}
-            ${this.footer()}
-        `;
-
-        // Close mobile menu on link click
+        // Close mobile menu when clicking on links
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navMenu').classList.remove('active');
             });
         });
-    },
-
-    hero() {
-        return `
-            <section class="hero">
-                <div class="container">
-                    <div class="hero-grid">
-                        <div class="hero-content">
-                            <h1>
-                                Hi, I'm<br>
-                                <span class="highlight">${DATA.name}</span>
-                            </h1>
-                            <p class="hero-subtitle">${DATA.title}</p>
-                            <p class="hero-bio">${DATA.bio}</p>
-                            <div class="hero-cta">
-                                <a href="mailto:${DATA.contact.email}" class="btn btn-primary">
-                                    Get in Touch →
-                                </a>
-                                <a href="${DATA.contact.github}" target="_blank" class="btn btn-outline">
-                                    View Work
-                                </a>
-                            </div>
-                        </div>
-                        <div class="hero-visual">
-                            <div class="avatar-container">
-                                <div class="avatar-border"></div>
-                                <img src="Qusai-Ismail.png" alt="${DATA.name}" class="avatar-img" onerror="this.src='https://via.placeholder.com/400'">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `;
-    },
-
-    experience() {
-        return `
-            <section id="experience">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-tag">// Career Path</div>
-                        <h2 class="section-title">Experience</h2>
-                        <p class="section-desc">Professional journey and key achievements in software engineering and research.</p>
-                    </div>
-                    <div class="timeline">
-                        ${DATA.experience.map(e => `
-                            <div class="timeline-item">
-                                <div class="timeline-date">${e.period}</div>
-                                <div class="timeline-content">
-                                    <h3>${e.title}</h3>
-                                    <div class="timeline-org">${e.org}</div>
-                                    <p class="timeline-desc">${e.desc}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </section>
-        `;
-    },
-
-    education() {
-        return `
-            <section id="education">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-tag">// Academic Background</div>
-                        <h2 class="section-title">Education</h2>
-                    </div>
-                    <div class="card-grid">
-                        ${DATA.education.map(e => `
-                            <div class="card">
-                                <span class="card-icon">🎓</span>
-                                <h3>${e.degree}</h3>
-                                <div class="card-meta">${e.school}</div>
-                                <div class="card-subtitle">${e.period}</div>
-                                <p><strong style="color: var(--accent)">${e.gpa || ''}</strong> ${e.gpa ? '•' : ''} ${e.honors}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </section>
-        `;
-    },
-
-    skills() {
-        return `
-            <section id="skills">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-tag">// Technical Stack</div>
-                        <h2 class="section-title">Skills</h2>
-                    </div>
-                    <div class="skills-container">
-                        ${DATA.skills.map(s => `<div class="skill">${s}</div>`).join('')}
-                    </div>
-                </div>
-            </section>
-        `;
-    },
-
-    publications() {
-        return `
-            <section id="publications">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-tag">// Research Output</div>
-                        <h2 class="section-title">Publications</h2>
-                    </div>
-                    <div class="pub-list">
-                        ${DATA.publications.map(p => `
-                            <div class="publication">
-                                <h3 class="pub-title">${p.title}</h3>
-                                <div class="pub-meta">
-                                    <span class="pub-year">${p.year}</span>
-                                    <span>${p.venue}</span>
-                                    <span class="pub-badge">Cited by ${p.cited}</span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </section>
-        `;
-    },
-
-    projects() {
-        return `
-            <section id="projects">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-tag">// Featured Work</div>
-                        <h2 class="section-title">Projects</h2>
-                    </div>
-                    <div class="project-grid">
+    </script>
+</body>
+</html>
